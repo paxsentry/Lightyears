@@ -30,8 +30,8 @@ namespace ly
             while (accumulatedTime > targetDeltaTime)
             {
                 accumulatedTime -= targetDeltaTime;
-                Tick(targetDeltaTime);
-                Render();
+                TickInternal(targetDeltaTime);
+                RenderInternal();
             }
 
             // The actual framerate
@@ -39,13 +39,30 @@ namespace ly
         }
     }
 
-    void Application::Tick(float deltaTime)
+    void Application::TickInternal(float deltaTime)
     {
-        std::cout << "ticking at the set FPS: " << 1.f / deltaTime << std::endl;
+        Tick(deltaTime);
+    }
+
+    void Application::RenderInternal()
+    {
+        mWindow.clear();
+
+        Render();
+
+        mWindow.display();
     }
 
     void Application::Render()
     {
+        sf::RectangleShape rect{ sf::Vector2f{200,200} };
+        rect.setFillColor(sf::Color::Green);
+        rect.setPosition(sf::Vector2f(mWindow.getSize().x / 2.f - 100, mWindow.getSize().y / 2.f - 100));
+        mWindow.draw(rect);
+    }
 
+    void Application::Tick(float deltaTime)
+    {
+        std::cout << "ticking at the set FPS: " << 1.f / deltaTime << std::endl;
     }
 }
