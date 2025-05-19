@@ -1,5 +1,5 @@
 #include "framework/Application.h"
-#include <iostream>
+#include "framework/Core.h"
 
 namespace ly
 {
@@ -35,13 +35,13 @@ namespace ly
             }
 
             // The actual framerate
-            //std::cout << "ticking at FPS: " << 1.f / frameDeltaTime << std::endl;
+            LOG("ticking at the set FPS: %f", 1.f / frameDeltaTime);
         }
     }
 
     void Application::TickInternal(float deltaTime)
     {
-        Tick(deltaTime);
+        //Tick(deltaTime);
     }
 
     void Application::RenderInternal()
@@ -63,6 +63,6 @@ namespace ly
 
     void Application::Tick(float deltaTime)
     {
-        std::cout << "ticking at the set FPS: " << 1.f / deltaTime << std::endl;
+        printf("ticking at the set FPS: %f\n", 1.f / deltaTime);
     }
 }
