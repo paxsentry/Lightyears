@@ -1,11 +1,14 @@
-#include "framework/World.h"
+#include "framework/Actor.h"
 #include "framework/Core.h"
+#include "framework/World.h"
 
 namespace ly
 {
     World::World(Application* owningApp)
         :mOwningApp{ owningApp },
-        mBeginPlay{ false }
+        mBeginPlay{ false },
+        mActors{},
+        mPendingActors{}
     {
     }
 
@@ -29,7 +32,24 @@ namespace ly
 
     void World::TickInternal(float deltaTime)
     {
+        for (shared<Actor> actor : mPendingActors)
+        {
+            mActors.push_back(actor);
+            actor->BeginPlay();
+        }
+
+        mPendingActors.clear();
+
+        for (shared<Actor> actor : mActors)
+        {
+            actor->Tick(deltaTime);
+        }
+
+        Tick(deltaTime);
+    }
+
+    void World::Tick(float deltaTime)
+    {
         LOG("World is ticking at FPS: %f", 1.f / deltaTime);
-        // Tick(deltaTime);
     }
 }
