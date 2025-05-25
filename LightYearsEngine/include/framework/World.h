@@ -1,5 +1,6 @@
 #pragma once
 #include "framework/Core.h"
+#include <SFML/Graphics.hpp>
 
 namespace ly
 {
@@ -12,6 +13,7 @@ namespace ly
 
         void TickInternal(float deltaTime);
         void BeginPlayInternal();
+        void Render(sf::RenderWindow& window);
 
         virtual ~World();
 

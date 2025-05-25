@@ -35,7 +35,7 @@ namespace ly
         for (shared<Actor> actor : mPendingActors)
         {
             mActors.push_back(actor);
-            actor->BeginPlay();
+            actor->BeginPlayInternal();
         }
 
         mPendingActors.clear();
@@ -46,7 +46,7 @@ namespace ly
                 iter = mActors.erase(iter);
             }
             else {
-                iter->get()->Tick(deltaTime);
+                iter->get()->TickInternal(deltaTime);
                 ++iter;
             }
         }
@@ -57,5 +57,13 @@ namespace ly
     void World::Tick(float deltaTime)
     {
         LOG("World is ticking at FPS: %f", 1.f / deltaTime);
+    }
+
+    void World::Render(sf::RenderWindow& window)
+    {
+        for (auto& actor : mActors)
+        {
+            actor->Render(window);
+        }
     }
 }

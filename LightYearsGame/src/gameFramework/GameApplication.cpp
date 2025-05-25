@@ -1,6 +1,7 @@
 #include "framework/Actor.h"
 #include "framework/World.h"
 #include "gameFramework/GameApplication.h"
+#include "config.h"
 
 ly::Application* GetApplication()
 {
@@ -10,10 +11,12 @@ ly::Application* GetApplication()
 namespace ly
 {
     GameApplication::GameApplication()
+        :Application{ 1024, 1440,"Light years", sf::Style::Titlebar | sf::Style::Close }
     {
         weak<World> newWorld = LoadWorld<World>();
         newWorld.lock()->SpawnActor<Actor>();
         mActorToDestroy = newWorld.lock()->SpawnActor<Actor>();
+        mActorToDestroy.lock()->SetTexture(GetResourceDir() + "SpaceShooterRedux/PNG/playerShip2_blue.png");
         mCounter = 0;
     }
 
