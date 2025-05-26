@@ -1,12 +1,13 @@
 #include "framework/Actor.h"
 #include "framework/Core.h"
+#include "framework/AssetsManager.h"
 
 namespace ly
 {
     Actor::Actor(World* owningWorld, const std::string& texturePath)
         :mOwningWorld{ owningWorld },
         mHasBeganPlay{ false },
-        mSprite{ sf::Sprite::Sprite(mTexture) },
+        mSprite{ sf::Sprite::Sprite(GetEmptyTexture()) },
         mTexture{ }
     {
         SetTexture(texturePath);
@@ -46,11 +47,18 @@ namespace ly
 
     void Actor::SetTexture(const std::string& texturePath)
     {
-        mTexture.loadFromFile(texturePath);
-        mSprite.setTexture(mTexture);
+        mTexture = AssetsManager::Get().LoadTexture(texturePath);
 
-        int textureWidth = mTexture.getSize().x;
-        int textureHeight = mTexture.getSize().y;
+        if (!mTexture)
+        {
+            LOG("Invalid texture path: %s", texturePath);
+            return;
+        }
+
+        mSprite.setTexture(*mTexture);
+
+        int textureWidth = mTexture->getSize().x;
+        int textureHeight = mTexture->getSize().y;
 
         mSprite.setTextureRect(sf::IntRect{ sf::Vector2i{}, sf::Vector2i{textureWidth, textureHeight} });
     }
@@ -60,5 +68,20 @@ namespace ly
         if (IsPendingDestruction()) return;
 
         window.draw(mSprite);
+    }
+
+    // This function is to create an empty texture, since SFML 3.0 there is NO cosntructor without texture
+    const sf::Texture& Actor::GetEmptyTexture()
+    {
+        sf::RenderTexture renderTexture;
+        sf::RectangleShape rect(sf::Vector2f(0.f, 0.f));
+
+        renderTexture.clear(sf::Color::Transparent);
+        renderTexture.draw(rect);
+        renderTexture.display(); 
+
+        static sf::Texture texture = renderTexture.getTexture();
+
+        return texture;
     }
 }
