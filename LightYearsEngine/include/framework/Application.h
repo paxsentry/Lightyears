@@ -24,12 +24,12 @@ namespace ly
         virtual void Tick(float deltaTime);
 
         sf::RenderWindow mWindow;
-
         float mTargetFrameRate;
-
         sf::Clock mTickClock;
-
         shared<World> currentWorld;
+
+        sf::Clock mCleanCycleClock;
+        float mCleanCycleInterval;
     };
 
     template<typename WorldType>

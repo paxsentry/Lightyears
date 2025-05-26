@@ -37,12 +37,10 @@ namespace ly
 
     void Actor::BeginPlay()
     {
-        LOG("Actor begin play");
     }
 
     void Actor::Tick(float deltaTime)
     {
-        LOG("Actor ticking at FPS: %f", 1.f / deltaTime);
     }
 
     void Actor::SetTexture(const std::string& texturePath)
@@ -51,7 +49,7 @@ namespace ly
 
         if (!mTexture)
         {
-            LOG("Invalid texture path: %s", texturePath);
+            LOG("Invalid texture path: %s", texturePath.c_str());
             return;
         }
 

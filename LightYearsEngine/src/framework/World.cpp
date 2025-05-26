@@ -27,7 +27,6 @@ namespace ly
 
     void World::BeginPlay()
     {
-        LOG("Begin play");
     }
 
     void World::TickInternal(float deltaTime)
@@ -56,7 +55,6 @@ namespace ly
 
     void World::Tick(float deltaTime)
     {
-        LOG("World is ticking at FPS: %f", 1.f / deltaTime);
     }
 
     void World::Render(sf::RenderWindow& window)
