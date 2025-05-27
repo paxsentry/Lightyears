@@ -1,6 +1,7 @@
 #include "framework/Actor.h"
 #include "framework/Core.h"
 #include "framework/AssetsManager.h"
+#include "framework/MathUtility.h"
 
 namespace ly
 {
@@ -59,6 +60,7 @@ namespace ly
         int textureHeight = mTexture->getSize().y;
 
         mSprite.setTextureRect(sf::IntRect{ sf::Vector2i{}, sf::Vector2i{textureWidth, textureHeight} });
+        CenterPivot();
     }
 
     void Actor::Render(sf::RenderWindow& window)
@@ -66,6 +68,58 @@ namespace ly
         if (IsPendingDestruction()) return;
 
         window.draw(mSprite);
+    }
+
+    void Actor::SetActorLocation(const sf::Vector2f& newLoc)
+    {
+        mSprite.setPosition(newLoc);
+    }
+
+    void Actor::SetActorRotation(const float newRot)
+    {
+        sf::Angle newAngle = sf::degrees(newRot);
+        SetActorRotation(newAngle);
+    }
+
+    void Actor::SetActorRotation(const sf::Angle& newRot)
+    {
+        mSprite.setRotation(newRot);
+    }
+
+    void Actor::AddActorLocationOffset(const sf::Vector2f& offset)
+    {
+        SetActorLocation(GetActorLocation() + offset);
+    }
+
+    void Actor::AddActorRotationOffset(const sf::Angle& offset)
+    {
+        SetActorRotation(GetActorRotation() + offset);
+    }
+
+    sf::Vector2f Actor::GetActorLocation() const
+    {
+        return mSprite.getPosition();
+    }
+
+    sf::Angle Actor::GetActorRotation() const
+    {
+        return mSprite.getRotation();
+    }
+
+    sf::Vector2f Actor::GetActorForwardDirection() const
+    {
+        return RotationToVector(GetActorRotation().asDegrees());
+    }
+
+    sf::Vector2f Actor::GetActorRightDirection() const
+    {
+        return RotationToVector(GetActorRotation().asDegrees() + 90.f);
+    }
+
+    void Actor::CenterPivot()
+    {
+        sf::FloatRect bound = mSprite.getGlobalBounds();
+        mSprite.setOrigin(sf::Vector2f(bound.size.x / 2.f, bound.size.y / 2.f));
     }
 
     // This function is to create an empty texture, since SFML 3.0 there is NO cosntructor without texture

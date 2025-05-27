@@ -17,15 +17,12 @@ namespace ly
         newWorld.lock()->SpawnActor<Actor>();
        mActorToDestroy = newWorld.lock()->SpawnActor<Actor>();
         mActorToDestroy.lock()->SetTexture(GetResourceDir() + "SpaceShooterRedux/PNG/playerShip2_blue.png");
+        mActorToDestroy.lock()->SetActorLocation(sf::Vector2f(512.f, 770.f));
+        mActorToDestroy.lock()->SetActorRotation(45.f);
         mCounter = 0;
     }
 
-    void GameApplication::Tick(float deltaTime) {
-        mCounter += deltaTime;
-        if (mCounter > 2.f) {
-            if (!mActorToDestroy.expired()) {
-                mActorToDestroy.lock()->Destroy();
-            }
-        }
+    void GameApplication::Tick(float deltaTime)
+    {
     }
 }
