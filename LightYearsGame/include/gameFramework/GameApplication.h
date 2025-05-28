@@ -7,6 +7,7 @@ namespace ly
 {
     class Actor;
     class Spaceship;
+    class PlayerSpaceship;
 
     class GameApplication : public Application 
     {
@@ -15,6 +16,6 @@ namespace ly
         virtual void Tick(float deltaTime);
     private:
         float mCounter;
-        weak<Spaceship> testPlayer;
+        weak<PlayerSpaceship> testPlayer;
     };
 }
