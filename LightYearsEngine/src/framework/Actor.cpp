@@ -2,6 +2,7 @@
 #include "framework/Core.h"
 #include "framework/AssetsManager.h"
 #include "framework/MathUtility.h"
+#include "framework/World.h"
 
 namespace ly
 {
@@ -114,6 +115,11 @@ namespace ly
     sf::Vector2f Actor::GetActorRightDirection() const
     {
         return RotationToVector(GetActorRotation().asDegrees() + 90.f);
+    }
+
+    sf::Vector2u Actor::GetWindowSize() const
+    {
+        return mOwningWorld->GetWindowSize();
     }
 
     void Actor::CenterPivot()

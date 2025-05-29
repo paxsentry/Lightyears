@@ -80,4 +80,9 @@ namespace ly
     {
         printf("ticking at the set FPS: %f\n", 1.f / deltaTime);
     }
+
+    sf::Vector2u Application::GetWindowSize() const
+    {
+        return mWindow.getSize();
+    }
 }

@@ -1,6 +1,7 @@
 #include "framework/Actor.h"
 #include "framework/Core.h"
 #include "framework/World.h"
+#include "framework/Application.h"
 
 namespace ly
 {
@@ -63,5 +64,10 @@ namespace ly
         {
             actor->Render(window);
         }
+    }
+
+    sf::Vector2u World::GetWindowSize() const
+    {
+        return mOwningApp->GetWindowSize();
     }
 }

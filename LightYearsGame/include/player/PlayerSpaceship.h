@@ -16,6 +16,7 @@ namespace ly
         void HandleInput();
         void ConsumeInput(float deltaTime);
         void NormaliseInput();
+        void ClampInputOnEdge();
 
         sf::Vector2f mMoveInput;
         float mSpeed;
