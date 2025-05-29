@@ -17,7 +17,6 @@ namespace ly
 
     Actor::~Actor()
     {
-        LOG("Actor destroyed");
     }
 
     void Actor::BeginPlayInternal()
@@ -109,12 +108,12 @@ namespace ly
 
     sf::Vector2f Actor::GetActorForwardDirection() const
     {
-        return RotationToVector(GetActorRotation().asDegrees());
+        return RotationToVector(GetActorRotation().asDegrees() - 90.f);
     }
 
     sf::Vector2f Actor::GetActorRightDirection() const
     {
-        return RotationToVector(GetActorRotation().asDegrees() + 90.f);
+        return RotationToVector(GetActorRotation().asDegrees());
     }
 
     sf::Vector2u Actor::GetWindowSize() const
