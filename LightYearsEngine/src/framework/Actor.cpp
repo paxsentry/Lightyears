@@ -141,4 +141,42 @@ namespace ly
 
         return texture;
     }
+
+    bool Actor::IsActorOutOfWindowBounds() const
+    {
+        float windowWidth = GetWorld()->GetWindowSize().x;
+        float windowHeight = GetWorld()->GetWindowSize().y;
+
+        float actorWidth = GetActorGlobalBounds().size.x;
+        float actorHeight = GetActorGlobalBounds().size.y;
+
+        sf::Vector2f actorPosition = GetActorLocation();
+
+        if (actorPosition.x < -actorWidth)
+        {
+            return true;
+        }
+
+        if (actorPosition.x > windowWidth + actorWidth) 
+        {
+            return true;
+        }
+
+        if (actorPosition.y < -actorHeight)
+        {
+            return true;
+        }
+
+        if (actorPosition.y > windowHeight + actorHeight)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    sf::FloatRect Actor::GetActorGlobalBounds() const
+    {
+        return mSprite.getGlobalBounds();
+    }
 }
