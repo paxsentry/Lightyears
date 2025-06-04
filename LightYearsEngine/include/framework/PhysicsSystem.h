@@ -4,10 +4,15 @@
 
 namespace ly
 {
+    class Actor;
+
     class PhysicsSystem
     {
     public:
         static PhysicsSystem& Get();
+        void Step(float deltaTime);
+        b2BodyId* AddListener(Actor* listener);
+        float GetPhysicsScale() const { return mPhysicsScale; }
 
     protected:
         PhysicsSystem();
@@ -19,5 +24,6 @@ namespace ly
         b2WorldDef mWorldDef = b2DefaultWorldDef();
         b2WorldId mPhysicsWorld;
         float mPhysicsScale; // to reduce Box2d meter based system, cm feels faster.
+        int mSubStepCount;
     };
 }
