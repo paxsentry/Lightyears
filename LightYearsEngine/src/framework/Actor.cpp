@@ -3,6 +3,8 @@
 #include "framework/AssetsManager.h"
 #include "framework/MathUtility.h"
 #include "framework/World.h"
+#include "framework/PhysicsSystem.h"
+#include <box2d/box2d.h>
 
 namespace ly
 {
@@ -10,7 +12,9 @@ namespace ly
         :mOwningWorld{ owningWorld },
         mHasBeganPlay{ false },
         mSprite{ sf::Sprite::Sprite(GetEmptyTexture()) },
-        mTexture{ }
+        mTexture{ },
+        mPhysicsBody{ nullptr },
+        mPhysicsEnabled{ false }
     {
         SetTexture(texturePath);
     }
@@ -173,6 +177,43 @@ namespace ly
         }
 
         return false;
+    }
+
+    void Actor::InitPhysics()
+    {
+        if(!mPhysicsBody) {
+           mPhysicsBody = PhysicsSystem::Get().AddListener(this);
+        }
+    }
+
+    void Actor::UnInitPhysics()
+    {
+        if (mPhysicsBody) {
+            PhysicsSystem::Get().RemoverListener(mPhysicsBody);
+        }
+    }
+
+    void Actor::SetEnablePhysics(bool enable)
+    {
+        mPhysicsEnabled = enable;
+
+        if (mPhysicsEnabled) {
+            InitPhysics();
+        }
+        else {
+            UnInitPhysics();
+        }
+    }
+
+    void Actor::UpdatePhysicsBodyTransform()
+    {
+        if (mPhysicsBody) {
+            float physicsScale = PhysicsSystem::Get().GetPhysicsScale();
+            b2Vec2 position{ GetActorLocation().x * physicsScale, GetActorLocation().y * physicsScale };
+            b2Rot rotation = b2MakeRot(GetActorRotation().asRadians()); // Can use here MathUtility too
+
+            b2Body_SetTransform(*mPhysicsBody, position, rotation);
+        }
     }
 
     sf::FloatRect Actor::GetActorGlobalBounds() const

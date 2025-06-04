@@ -49,6 +49,11 @@ namespace ly
         return &body;
     }
 
+    void PhysicsSystem::RemoverListener(b2BodyId* bodyToRemove)
+    {
+        // TODO
+    }
+
     PhysicsSystem::PhysicsSystem()
         : mPhysicsScale{ 0.01f },
         mSubStepCount{ 4 }

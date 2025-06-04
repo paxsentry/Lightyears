@@ -12,6 +12,7 @@ namespace ly
         static PhysicsSystem& Get();
         void Step(float deltaTime);
         b2BodyId* AddListener(Actor* listener);
+        void RemoverListener(b2BodyId* bodyToRemove);
         float GetPhysicsScale() const { return mPhysicsScale; }
 
     protected:

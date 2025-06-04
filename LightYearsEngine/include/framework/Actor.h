@@ -3,6 +3,8 @@
 #include "Object.h"
 #include <SFML/Graphics.hpp>
 
+class b2BodyId; // Because it is not in our namespace...
+
 namespace ly
 {
     class World;
@@ -37,8 +39,14 @@ namespace ly
 
         bool IsActorOutOfWindowBounds() const;
 
+        void SetEnablePhysics(bool enable);
+
     private:
         void CenterPivot();
+        void InitPhysics();
+        void UnInitPhysics();
+        void UpdatePhysicsBodyTransform();
+
         World* mOwningWorld;
 
         bool mHasBeganPlay;
@@ -46,5 +54,8 @@ namespace ly
         sf::Sprite mSprite;
         shared<sf::Texture> mTexture;
         const sf::Texture& GetEmptyTexture();
+
+        b2BodyId* mPhysicsBody;
+        bool mPhysicsEnabled;
     };
 }
