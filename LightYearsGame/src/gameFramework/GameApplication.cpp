@@ -18,10 +18,16 @@ namespace ly
         AssetsManager::Get().SetAssetsRootDirectory(GetResourceDir());
 
         weak<World> newWorld = LoadWorld<World>();
-        newWorld.lock()->SpawnActor<Actor>();
         testPlayer = newWorld.lock()->SpawnActor<PlayerSpaceship>();
         testPlayer.lock()->SetActorLocation(sf::Vector2f(512.f, 770.f));
         testPlayer.lock()->SetActorRotation(0.f);
+        testPlayer.lock()->DrawDebugLines();
+
+        weak<Spaceship> enemyOne = newWorld.lock()->SpawnActor<Spaceship>();
+        enemyOne.lock()->SetTexture("SpaceShooterRedux/PNG/playerShip2_red.png");
+        enemyOne.lock()->SetActorLocation(sf::Vector2f(256.f, 500.f));
+        enemyOne.lock()->SetActorRotation(180.f);
+        enemyOne.lock()->DrawDebugLines();
     }
 
     void GameApplication::Tick(float deltaTime)

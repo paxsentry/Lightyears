@@ -6,14 +6,17 @@ namespace ly
 {
     class Actor;
 
+    
+
     class PhysicsSystem
     {
     public:
         static PhysicsSystem& Get();
         void Step(float deltaTime);
-        b2BodyId* AddListener(Actor* listener);
-        void RemoverListener(b2BodyId* bodyToRemove);
+        b2BodyId AddListener(Actor* listener) const;
+        void RemoverListener(b2BodyId bodyToRemove);
         float GetPhysicsScale() const { return mPhysicsScale; }
+        void CheckContact();
 
     protected:
         PhysicsSystem();
@@ -26,5 +29,8 @@ namespace ly
         b2WorldId mPhysicsWorld;
         float mPhysicsScale; // to reduce Box2d meter based system, cm feels faster.
         int mSubStepCount;
+
+        void BeginContact(b2SensorBeginTouchEvent* contact);
+        void EndContact(b2SensorEndTouchEvent* contact);
     };
 }

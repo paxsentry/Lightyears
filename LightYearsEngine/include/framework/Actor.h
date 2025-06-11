@@ -2,8 +2,7 @@
 #include "Core.h"
 #include "Object.h"
 #include <SFML/Graphics.hpp>
-
-class b2BodyId; // Because it is not in our namespace...
+#include <box2d/box2d.h>
 
 namespace ly
 {
@@ -36,10 +35,13 @@ namespace ly
         sf::FloatRect GetActorGlobalBounds() const;
 
         World* GetWorld() const { return mOwningWorld; }
+        const void DrawDebugLines();
 
         bool IsActorOutOfWindowBounds() const;
 
         void SetEnablePhysics(bool enable);
+        virtual void OnActorBeginOverlap(Actor* other);
+        virtual void OnActorEndOverlap(Actor* other);
 
     private:
         void CenterPivot();
@@ -55,7 +57,8 @@ namespace ly
         shared<sf::Texture> mTexture;
         const sf::Texture& GetEmptyTexture();
 
-        b2BodyId* mPhysicsBody;
+        b2BodyId mPhysicsBody;
         bool mPhysicsEnabled;
+        sf::RectangleShape mDebugRect;
     };
 }
