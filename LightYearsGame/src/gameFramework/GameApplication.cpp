@@ -28,9 +28,18 @@ namespace ly
         enemyOne.lock()->SetActorLocation(sf::Vector2f(256.f, 500.f));
         enemyOne.lock()->SetActorRotation(180.f);
         enemyOne.lock()->DrawDebugLines();
+
+        mCounter = 0.f;
     }
 
     void GameApplication::Tick(float deltaTime)
     {
+        mCounter += deltaTime;
+
+        if (mCounter > 10.f) {
+            if (!testPlayer.expired()) {
+                testPlayer.lock()->Destroy();
+            }
+        }
     }
 }

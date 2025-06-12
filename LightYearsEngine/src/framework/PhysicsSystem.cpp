@@ -4,20 +4,39 @@
 
 namespace ly
 {
-    unique<PhysicsSystem> PhysicsSystem::physicsSystem{ nullptr };
+    unique<PhysicsSystem> PhysicsSystem::mPhysicsSystem{ nullptr };
+
+    PhysicsSystem::PhysicsSystem()
+        : mPhysicsScale{ 0.01f },
+        mSubStepCount{ 4 }
+    {
+        mWorldDef.gravity = mGravity;
+        mWorldDef.enableSleep = false;
+        mPhysicsWorld = b2CreateWorld(&mWorldDef);
+    }
+
+    void PhysicsSystem::ProcessPendingRemove()
+    {
+        for (auto& elem : mPendingRemove) {
+            b2DestroyBody(elem);
+        }
+
+        mPendingRemove.clear();
+    }
 
     PhysicsSystem& PhysicsSystem::Get()
     {
-        if (!physicsSystem)
+        if (!mPhysicsSystem)
         {
-            physicsSystem = std::move(unique<PhysicsSystem> {new PhysicsSystem});
+            mPhysicsSystem = std::move(unique<PhysicsSystem> {new PhysicsSystem});
         }
 
-        return *physicsSystem;
+        return *mPhysicsSystem;
     }
 
     void PhysicsSystem::Step(float deltaTime)
     {
+        ProcessPendingRemove();
         b2World_Step(mPhysicsWorld, deltaTime, mSubStepCount);
         CheckContact();
     }
@@ -53,7 +72,7 @@ namespace ly
 
     void PhysicsSystem::RemoverListener(b2BodyId bodyToRemove)
     {
-        // TODO
+        mPendingRemove.insert(bodyToRemove);
     }
 
     void PhysicsSystem::CheckContact()
@@ -67,6 +86,11 @@ namespace ly
         for (int i = 0; i < sensorEvent.endCount; ++i) {
             EndContact(sensorEvent.endEvents);
         }
+    }
+
+    void PhysicsSystem::Cleanup()
+    {
+        mPhysicsSystem = std::move(unique<PhysicsSystem>{new PhysicsSystem});
     }
 
     void PhysicsSystem::BeginContact(b2SensorBeginTouchEvent* contact)
@@ -103,15 +127,5 @@ namespace ly
         if (visitorActor && !visitorActor->IsPendingDestruction()) {
             visitorActor->OnActorEndOverlap(sensorActor);
         }
-    }
-
-
-    PhysicsSystem::PhysicsSystem()
-        : mPhysicsScale{ 0.01f },
-        mSubStepCount{ 4 }
-    {
-        mWorldDef.gravity = mGravity;
-        mWorldDef.enableSleep = false;
-        mPhysicsWorld = b2CreateWorld(&mWorldDef);
     }
 }

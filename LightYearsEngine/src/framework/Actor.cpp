@@ -205,6 +205,7 @@ namespace ly
     {
         if (B2_IS_NON_NULL(mPhysicsBody)) {
             PhysicsSystem::Get().RemoverListener(mPhysicsBody);
+            mPhysicsBody = B2_ZERO_INIT;
         }
     }
 
@@ -218,6 +219,12 @@ namespace ly
         else {
             UnInitPhysics();
         }
+    }
+
+    void Actor::Destroy()
+    {
+        UnInitPhysics();
+        Object::Destroy();
     }
 
     void Actor::UpdatePhysicsBodyTransform()
