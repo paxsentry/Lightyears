@@ -4,18 +4,21 @@
 #include <unordered_set>
 
 // Hash for b2BodyId
-bool operator==(b2BodyId const& lhs, b2BodyId const& rhs) {
-    return (lhs.generation == rhs.generation) &&
-        (lhs.index1 == rhs.index1) &&
-        (lhs.world0 == rhs.world0);
-}
+struct b2BodyIdHash {
+    std::size_t operator()(const b2BodyId& bodyId) const noexcept {
+        std::size_t h1 = std::hash<int32_t>()(bodyId.index1);
+        std::size_t h2 = std::hash<uint16_t>()(bodyId.world0);
+        std::size_t h3 = std::hash<uint16_t>()(bodyId.generation);
 
-class b2BodyIdHash {
-public:
-    size_t operator()(const b2BodyId& bodyId) const {
-        return (std::hash<int32_t>()(bodyId.index1)) ^
-            (std::hash<uint16_t>()(bodyId.world0)) ^
-            (std::hash<uint16_t>()(bodyId.generation));
+        return h1 ^ (h2 << 1) ^ (h3 << 2);
+    }
+};
+
+struct b2BodyIdEqual {
+    bool operator()(const b2BodyId& a, const b2BodyId& b) const noexcept {
+        return a.index1 == b.index1 &&
+            a.world0 == b.world0 &&
+            a.generation == b.generation;
     }
 };
 
@@ -51,6 +54,6 @@ namespace ly
         void BeginContact(b2SensorBeginTouchEvent* contact);
         void EndContact(b2SensorEndTouchEvent* contact);
 
-        Set<b2BodyId> mPendingRemove;
+        std::unordered_set<b2BodyId, b2BodyIdHash, b2BodyIdEqual> mPendingRemove;
     };
 }
