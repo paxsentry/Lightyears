@@ -1,8 +1,10 @@
 #pragma once
+#include <memory>
+#include "framework/Core.h"
 
 namespace ly
 {
-    class Object
+    class Object : public std::enable_shared_from_this<Object>
     {
     public:
         Object();
@@ -13,6 +15,8 @@ namespace ly
         bool IsPendingDestruction() const {
             return mIsPedingDestruction;
         }
+
+        weak<Object> GetSelfWeakRef();
 
     private:
         bool mIsPedingDestruction;
