@@ -3,11 +3,10 @@
 namespace ly
 {
     Spaceship::Spaceship(World* owningWorld, const std::string& texturePath)
-        :Actor{owningWorld, texturePath},
+        :Actor{ owningWorld, texturePath },
         mVelocity{},
-        mHealthComp{100.f, 100.f}
-    {
-    }
+        mHealthComp{ 100.f, 100.f }
+    {}
 
     void Spaceship::Tick(float deltaTime)
     {
@@ -21,12 +20,18 @@ namespace ly
     }
 
     void Spaceship::Shoot()
-    {
-    }
+    {}
 
     void Spaceship::BeginPlay()
     {
         Actor::BeginPlay();
         SetEnablePhysics(true);
+        mHealthComp.onHealthChanged.BindAction(GetWeakRef(), &Spaceship::OnHealthChanged);
+        mHealthComp.onHealthChanged.BroadCast(10, 100, 120);
+    }
+
+    void Spaceship::OnHealthChanged(float amount, float health, float maxHealth)
+    {
+        LOG("Health is changed by %f, now it is %f/%f", amount, health, maxHealth);
     }
 }

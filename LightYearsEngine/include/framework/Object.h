@@ -1,6 +1,7 @@
 #pragma once
-#include <memory>
 #include "framework/Core.h"
+#include "framework/Delegate.h"
+#include <memory>
 
 namespace ly
 {
@@ -12,11 +13,14 @@ namespace ly
 
         virtual void Destroy();
 
-        bool IsPendingDestruction() const {
+        bool IsPendingDestruction() const
+        {
             return mIsPedingDestruction;
         }
 
-        weak<Object> GetSelfWeakRef();
+        weak<Object> GetWeakRef();
+        weak<const Object>GetWeakRef() const;
+        Delegate<Object*> onDestroy;
 
     private:
         bool mIsPedingDestruction;

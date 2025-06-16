@@ -1,9 +1,9 @@
 #include "framework/Actor.h"
-#include "framework/Core.h"
 #include "framework/AssetsManager.h"
+#include "framework/Core.h"
 #include "framework/MathUtility.h"
-#include "framework/World.h"
 #include "framework/PhysicsSystem.h"
+#include "framework/World.h"
 
 namespace ly
 {
@@ -20,8 +20,7 @@ namespace ly
     }
 
     Actor::~Actor()
-    {
-    }
+    {}
 
     void Actor::BeginPlayInternal()
     {
@@ -41,12 +40,10 @@ namespace ly
     }
 
     void Actor::BeginPlay()
-    {
-    }
+    {}
 
     void Actor::Tick(float deltaTime)
-    {
-    }
+    {}
 
     void Actor::SetTexture(const std::string& texturePath)
     {
@@ -142,7 +139,7 @@ namespace ly
 
         renderTexture.clear(sf::Color::Transparent);
         renderTexture.draw(rect);
-        renderTexture.display(); 
+        renderTexture.display();
 
         static sf::Texture texture = renderTexture.getTexture();
 
@@ -154,8 +151,8 @@ namespace ly
         auto bounds = mSprite.getGlobalBounds();
         auto location = GetActorLocation();
         mDebugRect = sf::RectangleShape(sf::Vector2f(bounds.size.x, bounds.size.y));
-        mDebugRect.setPosition(sf::Vector2f(location.x-bounds.size.x/2.f, location.y-bounds.size.y/2.f));
-        
+        mDebugRect.setPosition(sf::Vector2f(location.x - bounds.size.x / 2.f, location.y - bounds.size.y / 2.f));
+
         mDebugRect.setOutlineColor(sf::Color::Red);
         mDebugRect.setFillColor(sf::Color::Transparent);
         mDebugRect.setOutlineThickness(2.f);
@@ -176,7 +173,7 @@ namespace ly
             return true;
         }
 
-        if (actorPosition.x > windowWidth + actorWidth) 
+        if (actorPosition.x > windowWidth + actorWidth)
         {
             return true;
         }
@@ -196,14 +193,16 @@ namespace ly
 
     void Actor::InitPhysics()
     {
-        if(!B2_IS_NON_NULL(mPhysicsBody)) {
-           mPhysicsBody = PhysicsSystem::Get().AddListener(this);
+        if (!B2_IS_NON_NULL(mPhysicsBody))
+        {
+            mPhysicsBody = PhysicsSystem::Get().AddListener(this);
         }
     }
 
     void Actor::UnInitPhysics()
     {
-        if (B2_IS_NON_NULL(mPhysicsBody)) {
+        if (B2_IS_NON_NULL(mPhysicsBody))
+        {
             PhysicsSystem::Get().RemoverListener(mPhysicsBody);
             mPhysicsBody = B2_ZERO_INIT;
         }
@@ -213,10 +212,12 @@ namespace ly
     {
         mPhysicsEnabled = enable;
 
-        if (mPhysicsEnabled) {
+        if (mPhysicsEnabled)
+        {
             InitPhysics();
         }
-        else {
+        else
+        {
             UnInitPhysics();
         }
     }
@@ -229,8 +230,9 @@ namespace ly
 
     void Actor::UpdatePhysicsBodyTransform()
     {
-        if (B2_IS_NON_NULL(mPhysicsBody)) {
-            
+        if (B2_IS_NON_NULL(mPhysicsBody))
+        {
+
             float physicsScale = PhysicsSystem::Get().GetPhysicsScale();
             b2Vec2 position{ GetActorLocation().x * physicsScale
                 , GetActorLocation().y * physicsScale
