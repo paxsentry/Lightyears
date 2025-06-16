@@ -1,8 +1,8 @@
 #pragma once
 #include "Core.h"
 #include "Object.h"
-#include <SFML/Graphics.hpp>
 #include <box2d/box2d.h>
+#include <SFML/Graphics.hpp>
 
 namespace ly
 {
@@ -44,6 +44,12 @@ namespace ly
         virtual void OnActorEndOverlap(Actor* other);
         virtual void Destroy() override;
 
+        static uint8 GetNeutralTeamId() { return neutralTeamId; }
+        void SetTeamId(uint8 teamId) { mTeamId = teamId; }
+        uint8 GetTeamId() const { return mTeamId; }
+        bool IsOtherHostile(Actor* other) const;
+
+        virtual void ApplyDamage(float amount);
     private:
         void CenterPivot();
         void InitPhysics();
@@ -61,5 +67,9 @@ namespace ly
         b2BodyId mPhysicsBody;
         bool mPhysicsEnabled;
         sf::RectangleShape mDebugRect;
+
+        uint8 mTeamId;
+
+        const static uint8 neutralTeamId = 255;
     };
 }

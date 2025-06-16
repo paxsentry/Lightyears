@@ -21,13 +21,14 @@ namespace ly
         testPlayer = newWorld.lock()->SpawnActor<PlayerSpaceship>();
         testPlayer.lock()->SetActorLocation(sf::Vector2f(512.f, 770.f));
         testPlayer.lock()->SetActorRotation(0.f);
-        testPlayer.lock()->DrawDebugLines();
+        //testPlayer.lock()->DrawDebugLines();
 
         weak<Spaceship> enemyOne = newWorld.lock()->SpawnActor<Spaceship>();
         enemyOne.lock()->SetTexture("SpaceShooterRedux/PNG/playerShip2_red.png");
         enemyOne.lock()->SetActorLocation(sf::Vector2f(256.f, 500.f));
         enemyOne.lock()->SetActorRotation(180.f);
-        enemyOne.lock()->DrawDebugLines();
+        enemyOne.lock()->SetTeamId(2);
+       // enemyOne.lock()->DrawDebugLines();
 
         mCounter = 0.f;
     }
@@ -36,10 +37,10 @@ namespace ly
     {
         mCounter += deltaTime;
 
-        if (mCounter > 10.f) {
-            if (!testPlayer.expired()) {
-                testPlayer.lock()->Destroy();
-            }
-        }
+        //if (mCounter > 10.f) {
+        //    if (!testPlayer.expired()) {
+        //        testPlayer.lock()->Destroy();
+        //    }
+        //}
     }
 }

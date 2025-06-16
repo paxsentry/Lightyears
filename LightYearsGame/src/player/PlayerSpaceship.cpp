@@ -11,6 +11,7 @@ namespace ly
         mSpeed{ 300.f },
         mShooter { new BulletShooter{this, 0.1f} }
     {
+        SetTeamId(1);
     }
 
     void PlayerSpaceship::Tick(float deltaTime)

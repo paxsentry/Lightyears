@@ -1,17 +1,14 @@
-#include "framework/Object.h"
 #include "framework/Core.h"
+#include "framework/Object.h"
 
 namespace ly
 {
     Object::Object()
         :mIsPedingDestruction{ false }
-    {
-    }
+    {}
 
     Object::~Object()
-    {
-        LOG("Object destructed");
-    }
+    {}
 
     void Object::Destroy()
     {

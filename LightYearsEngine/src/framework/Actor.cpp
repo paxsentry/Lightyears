@@ -14,7 +14,8 @@ namespace ly
         mTexture{ },
         mPhysicsBody{ },
         mPhysicsEnabled{ false },
-        mDebugRect{ }
+        mDebugRect{ },
+        mTeamId{ GetNeutralTeamId() }
     {
         SetTexture(texturePath);
     }
@@ -244,17 +245,28 @@ namespace ly
     }
 
     void Actor::OnActorBeginOverlap(Actor* other)
-    {
-        LOG("Contact ");
-    }
+    {}
 
     void Actor::OnActorEndOverlap(Actor* other)
-    {
-        LOG("End contact");
-    }
+    {}
 
     sf::FloatRect Actor::GetActorGlobalBounds() const
     {
         return mSprite.getGlobalBounds();
+    }
+
+    bool Actor::IsOtherHostile(Actor* other) const
+    {
+        if (GetTeamId() == GetNeutralTeamId() || other->GetTeamId() == GetNeutralTeamId())
+        {
+            return false;
+        }
+
+        return GetTeamId() != other->GetTeamId();
+    }
+
+    void Actor::ApplyDamage(float amount)
+    {
+
     }
 };

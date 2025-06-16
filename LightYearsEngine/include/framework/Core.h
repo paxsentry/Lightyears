@@ -31,6 +31,8 @@ namespace ly
     template<typename T, typename hasher = std::hash<T>>
     using Set = std::unordered_set<T, hasher>;
 
+    using uint8 = unsigned char;
+
     // Macros
     #define LOG(M, ...) printf(M "\n", ##__VA_ARGS__)
 }
