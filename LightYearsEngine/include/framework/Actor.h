@@ -34,7 +34,8 @@ namespace ly
         sf::Vector2u GetWindowSize() const;
         sf::FloatRect GetActorGlobalBounds() const;
 
-        World* GetWorld() const { return mOwningWorld; }
+        const World* GetWorld() const { return mOwningWorld; }
+        World* GetWorld() { return mOwningWorld; }
         const void DrawDebugLines();
 
         bool IsActorOutOfWindowBounds() const;
@@ -50,6 +51,10 @@ namespace ly
         bool IsOtherHostile(Actor* other) const;
 
         virtual void ApplyDamage(float amount);
+
+        sf::Sprite& GetSprite() { return mSprite; }
+        const sf::Sprite& GetSprite() const { return mSprite; }
+
     private:
         void CenterPivot();
         void InitPhysics();

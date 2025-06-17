@@ -21,5 +21,11 @@ namespace ly
         virtual void OnHealthChanged(float amount, float health, float maxHealth);
         virtual void OnTakenDamage(float amount, float health, float maxHealth);
         virtual void Blow();
+
+        sf::Color mBlinkColorOffset;
+        float mBlinkDuration;
+        float mBlinkTime;
+        void Blink();
+        void UpdateBlink(float deltaTime);
     };
 }
