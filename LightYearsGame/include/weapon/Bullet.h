@@ -9,7 +9,7 @@ namespace ly
         Bullet(World* owningWorld, Actor* owner,
             const std::string& texturePath,
             float speed = 900.f,
-            float damage = 5.f);
+            float damage = 20.f);
 
         void SetSpeed(float newSpeed);
         void SetDamage(float newDamage);
