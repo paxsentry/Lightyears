@@ -1,16 +1,15 @@
-#include "weapon/BulletShooter.h"
 #include "framework/Core.h"
-#include "weapon/Bullet.h"
 #include "framework/World.h"
+#include "weapon/Bullet.h"
+#include "weapon/BulletShooter.h"
 
 namespace ly
 {
     BulletShooter::BulletShooter(Actor* owner, float cooldownTime)
-        : Shooter{owner},
+        : Shooter{ owner },
         mCooldownClock{},
-        mCooldownTime{cooldownTime}
-    {
-    }
+        mCooldownTime{ cooldownTime }
+    {}
 
     bool BulletShooter::IsOnCooldown() const
     {
@@ -25,10 +24,11 @@ namespace ly
     void BulletShooter::ShootImplementation()
     {
         mCooldownClock.restart();
-        weak<Bullet> newBullet = GetOwner()->GetWorld()->SpawnActor<Bullet>(GetOwner(), 
+        weak<Bullet> newBullet = GetOwner()->GetWorld()->SpawnActor<Bullet>(GetOwner(),
             "SpaceShooterRedux/PNG/Lasers/laserBlue01.png"
         );
-        newBullet.lock()->SetActorLocation(GetOwner()->GetActorLocation());
+        newBullet.lock()->SetSpeed(mBulletSpeed);
+            newBullet.lock()->SetActorLocation(GetOwner()->GetActorLocation());
         newBullet.lock()->SetActorRotation(GetOwner()->GetActorRotation());
     }
 }

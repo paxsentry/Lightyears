@@ -85,6 +85,11 @@ namespace ly
         SetActorRotation(newAngle);
     }
 
+    void Actor::SetActorScale(const sf::Vector2f& newScale)
+    {
+        mSprite.setScale(newScale);
+    }
+
     void Actor::SetActorRotation(const sf::Angle& newRot)
     {
         mSprite.setRotation(newRot);
