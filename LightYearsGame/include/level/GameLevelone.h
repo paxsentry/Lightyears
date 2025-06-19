@@ -11,6 +11,8 @@ namespace ly
         GameLevelone(Application* application);
 
     private:
+        virtual void BeginPlay() override;
         weak<PlayerSpaceship> testPlayer;
+        void TimerCallback();
     };
 }

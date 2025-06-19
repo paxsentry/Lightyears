@@ -1,5 +1,6 @@
 #pragma once
 #include "framework/Core.h"
+#include "framework/Object.h"
 #include <SFML/Graphics.hpp>
 
 namespace ly
@@ -7,7 +8,8 @@ namespace ly
     class Application;
     class Actor;
 
-    class World {
+    class World : public Object
+    {
     public:
         World(Application* owningApp);
 
@@ -24,8 +26,8 @@ namespace ly
         void CleanCycle();
 
     private:
-        void BeginPlay();
-        void Tick(float deltaTime);
+        virtual void BeginPlay();
+        virtual void Tick(float deltaTime);
 
         Application* mOwningApp;
         bool mBeginPlay;
