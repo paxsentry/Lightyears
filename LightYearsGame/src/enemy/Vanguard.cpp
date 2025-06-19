@@ -11,7 +11,7 @@ namespace ly
         // These two are needed to have the correct facing and shooting of the Vanguard
         SetActorRotation(180.f);
         SetActorScale(sf::Vector2f{ 1.f,-1.f });
-        mShooter->SetBulletSpeed(700.f);
+        mShooter->SetBulletSpeed(1100.f);
     }
 
     void Vanguard::Shoot()

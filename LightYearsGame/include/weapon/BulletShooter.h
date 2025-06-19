@@ -7,7 +7,7 @@ namespace ly
     class BulletShooter : public Shooter
     {
     public:
-        BulletShooter(Actor* owner, float cooldownTime = 0.3f);
+        BulletShooter(Actor* owner, float cooldownTime = 0.5f);
         virtual bool IsOnCooldown() const override;
         void SetBulletSpeed(float bulletSpeed) { mBulletSpeed = bulletSpeed; }
         void SetBulletDamage(float bulletDamage) { mBulletDamage = bulletDamage; }

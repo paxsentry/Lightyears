@@ -28,7 +28,7 @@ namespace ly
             "SpaceShooterRedux/PNG/Lasers/laserBlue01.png"
         );
         newBullet.lock()->SetSpeed(mBulletSpeed);
-            newBullet.lock()->SetActorLocation(GetOwner()->GetActorLocation());
+        newBullet.lock()->SetActorLocation(GetOwner()->GetActorLocation());
         newBullet.lock()->SetActorRotation(GetOwner()->GetActorRotation());
     }
 }

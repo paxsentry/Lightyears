@@ -1,8 +1,8 @@
 #include "framework/Application.h"
-#include "framework/Core.h"
-#include "framework/World.h"
 #include "framework/AssetsManager.h"
+#include "framework/Core.h"
 #include "framework/PhysicsSystem.h"
+#include "framework/World.h"
 
 namespace ly
 {
@@ -12,9 +12,8 @@ namespace ly
         mTickClock{ },
         currentWorld{ nullptr },
         mCleanCycleClock{},
-        mCleanCycleInterval{2.f}
-    {
-    }
+        mCleanCycleInterval{ 2.f }
+    {}
 
     void Application::Run()
     {
@@ -26,7 +25,8 @@ namespace ly
         {
             while (const std::optional windowEvent = mWindow.pollEvent())
             {
-                if (windowEvent->is<sf::Event::Closed>()) {
+                if (windowEvent->is<sf::Event::Closed>())
+                {
                     mWindow.close();
                 }
             }
@@ -79,15 +79,14 @@ namespace ly
 
     void Application::Render()
     {
-        if (currentWorld) {
+        if (currentWorld)
+        {
             currentWorld->Render(mWindow);
-       }
+        }
     }
 
     void Application::Tick(float deltaTime)
-    {
-        printf("ticking at the set FPS: %f\n", 1.f / deltaTime);
-    }
+    {}
 
     sf::Vector2u Application::GetWindowSize() const
     {
