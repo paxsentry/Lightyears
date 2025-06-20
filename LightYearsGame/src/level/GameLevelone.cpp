@@ -23,7 +23,7 @@ namespace ly
 
     void GameLevelone::BeginPlay()
     {
-        TimerManager::Get().SetTimer(GetWeakRef(), &GameLevelone::TimerCallback, 10);
+        TimerManager::Get().SetTimer(GetWeakRef(), &GameLevelone::TimerCallback, 3, true);
     }
 
     void GameLevelone::TimerCallback()

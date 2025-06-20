@@ -3,6 +3,7 @@
 #include "framework/Core.h"
 #include "framework/PhysicsSystem.h"
 #include "framework/World.h"
+#include "framework/TimerManager.h"
 
 namespace ly
 {
@@ -53,6 +54,8 @@ namespace ly
         {
             currentWorld->TickInternal(deltaTime);
         }
+
+        TimerManager::Get().UpdateTimer(deltaTime);
 
         PhysicsSystem::Get().Step(deltaTime);
 
