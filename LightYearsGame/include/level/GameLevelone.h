@@ -14,5 +14,6 @@ namespace ly
         virtual void BeginPlay() override;
         weak<PlayerSpaceship> testPlayer;
         void TimerCallback();
+        unsigned int timerindextest;
     };
 }

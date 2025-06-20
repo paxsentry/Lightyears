@@ -23,11 +23,12 @@ namespace ly
 
     void GameLevelone::BeginPlay()
     {
-        TimerManager::Get().SetTimer(GetWeakRef(), &GameLevelone::TimerCallback, 3, true);
+       timerindextest = TimerManager::Get().SetTimer(GetWeakRef(), &GameLevelone::TimerCallback, 3, true);
     }
 
     void GameLevelone::TimerCallback()
     {
         LOG("TimerCallback");
+        TimerManager::Get().ClearTimer(timerindextest);
     }
 }
