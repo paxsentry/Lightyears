@@ -1,6 +1,6 @@
+#include "framework/MathUtility.h"
 #include "player/PlayerSpaceship.h"
 #include "SFML/System.hpp"
-#include "framework/MathUtility.h"
 #include "weapon/BulletShooter.h"
 
 namespace ly
@@ -9,7 +9,7 @@ namespace ly
         :Spaceship{ owningWorld, path },
         mMoveInput{},
         mSpeed{ 300.f },
-        mShooter { new BulletShooter{this, 0.1f} }
+        mShooter{ new BulletShooter{this, 0.1f, {50.f, 0.f}} }
     {
         SetTeamId(1);
     }
@@ -31,7 +31,7 @@ namespace ly
 
     void PlayerSpaceship::HandleInput()
     {
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) 
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W))
         {
             mMoveInput.y = -1.f;
         }

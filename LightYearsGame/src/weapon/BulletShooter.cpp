@@ -5,10 +5,12 @@
 
 namespace ly
 {
-    BulletShooter::BulletShooter(Actor* owner, float cooldownTime)
+    BulletShooter::BulletShooter(Actor* owner, float cooldownTime, const sf::Vector2f& localPositionOffset, float localRotationOffset)
         : Shooter{ owner },
         mCooldownClock{},
-        mCooldownTime{ cooldownTime }
+        mCooldownTime{ cooldownTime },
+        mLocalPositionOffset{ localPositionOffset },
+        mLocalRotationOffset{ localRotationOffset }
     {}
 
     bool BulletShooter::IsOnCooldown() const
@@ -23,12 +25,18 @@ namespace ly
 
     void BulletShooter::ShootImplementation()
     {
+        sf::Vector2f ownerForwardDirection = GetOwner()->GetActorForwardDirection();
+        sf::Vector2f ownerRightDirection = GetOwner()->GetActorRightDirection();
+
         mCooldownClock.restart();
         weak<Bullet> newBullet = GetOwner()->GetWorld()->SpawnActor<Bullet>(GetOwner(),
             "SpaceShooterRedux/PNG/Lasers/laserBlue01.png"
         );
         newBullet.lock()->SetSpeed(mBulletSpeed);
-        newBullet.lock()->SetActorLocation(GetOwner()->GetActorLocation());
-        newBullet.lock()->SetActorRotation(GetOwner()->GetActorRotation());
+        newBullet.lock()->SetActorLocation(GetOwner()->GetActorLocation() +
+            ownerForwardDirection * mLocalPositionOffset.x +
+            ownerRightDirection * mLocalPositionOffset.y);
+        newBullet.lock()->SetActorRotation(GetOwner()->GetActorRotation().asDegrees() +
+            mLocalRotationOffset);
     }
 }
