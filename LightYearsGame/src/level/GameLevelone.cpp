@@ -3,6 +3,7 @@
 #include "framework/AssetsManager.h"
 #include "framework/TimerManager.h"
 #include "framework/World.h"
+#include "gameplay/GameStage.h"
 #include "level/GameLevelone.h"
 #include "player/PlayerSpaceship.h"
 
@@ -23,12 +24,17 @@ namespace ly
 
     void GameLevelone::BeginPlay()
     {
-       timerindextest = TimerManager::Get().SetTimer(GetWeakRef(), &GameLevelone::TimerCallback, 3, true);
+        timerindextest = TimerManager::Get().SetTimer(GetWeakRef(), &GameLevelone::TimerCallback, 3, true);
     }
 
     void GameLevelone::TimerCallback()
     {
         LOG("TimerCallback");
         TimerManager::Get().ClearTimer(timerindextest);
+    }
+
+    void GameLevelone::InitGameStages()
+    {
+        AddStage(shared<GameStage> {new GameStage{ this }});
     }
 }

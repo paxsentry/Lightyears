@@ -1,7 +1,8 @@
 #include "framework/Actor.h"
+#include "framework/Application.h"
 #include "framework/Core.h"
 #include "framework/World.h"
-#include "framework/Application.h"
+#include "gameplay/GameStage.h"
 
 namespace ly
 {
@@ -9,7 +10,9 @@ namespace ly
         :mOwningApp{ owningApp },
         mBeginPlay{ false },
         mActors{},
-        mPendingActors{}
+        mPendingActors{},
+        mCurrentStageIndex{ -1 },
+        mGameStages{}
     {
     }
 
@@ -19,16 +22,16 @@ namespace ly
         {
             mBeginPlay = true;
             BeginPlay();
+            InitGameStages();
+            NextGameStage();
         }
     }
 
     World::~World()
-    {
-    }
+    {}
 
     void World::BeginPlay()
-    {
-    }
+    {}
 
     void World::TickInternal(float deltaTime)
     {
@@ -46,12 +49,37 @@ namespace ly
             ++iter;
         }
 
+        if (mCurrentStageIndex >= 0 && mCurrentStageIndex < mGameStages.size())
+        {
+            mGameStages[mCurrentStageIndex]->TickStage(deltaTime);
+        }
+
         Tick(deltaTime);
     }
 
     void World::Tick(float deltaTime)
+    {}
+
+    void World::InitGameStages()
+    {}
+
+    void World::NextGameStage()
     {
+        ++mCurrentStageIndex;
+
+        if (mCurrentStageIndex >= 0 && mCurrentStageIndex < mGameStages.size())
+        {
+            mGameStages[mCurrentStageIndex]->onStageFinished.BindAction(GetWeakRef(), &World::NextGameStage);
+            mGameStages[mCurrentStageIndex]->StartStage();
+        }
+        else
+        {
+            AllGameStageFinished();
+        }
     }
+
+    void World::AllGameStageFinished()
+    {}
 
     void World::Render(sf::RenderWindow& window)
     {
@@ -70,7 +98,8 @@ namespace ly
     {
         for (auto iter = mActors.begin(); iter != mActors.end();)
         {
-            if (iter->get()->IsPendingDestruction()) {
+            if (iter->get()->IsPendingDestruction())
+            {
                 iter = mActors.erase(iter);
             }
             else
@@ -78,5 +107,21 @@ namespace ly
                 ++iter;
             }
         }
+
+        for (auto iter = mGameStages.begin(); iter != mGameStages.end();)
+        {
+            if (iter->get()->IsStageFinished())
+            {
+                iter = mGameStages.erase(iter);
+            }
+            else
+            {
+                ++iter;
+            }
+        }
+    }
+    void World::AddStage(const shared<GameStage>& newStage)
+    {
+        mGameStages.push_back(newStage);
     }
 }
