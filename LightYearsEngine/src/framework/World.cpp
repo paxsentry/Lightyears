@@ -120,6 +120,7 @@ namespace ly
             }
         }
     }
+
     void World::AddStage(const shared<GameStage>& newStage)
     {
         mGameStages.push_back(newStage);
