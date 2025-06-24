@@ -12,9 +12,9 @@ namespace ly
         mLeftSpawnLocation{ 0.0f,0.0f },
         mRightSpawnLocation{ 0.0f,0.0f },
         mSpawnLocation{ 0.0f,0.0f },
-        mRowsToSpawn{ 2 },
+        mRowsToSpawn{ 3 },
         mRowSpawnCount{ 0 },
-        mVanguardsPerRow{ 5 },
+        mVanguardsPerRow{ 1 },
         mCurrentRowVanguardCount{ 0 }
     {}
 
