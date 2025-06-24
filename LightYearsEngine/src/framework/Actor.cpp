@@ -184,7 +184,7 @@ namespace ly
             return true;
         }
 
-        if (actorPosition.y < -actorHeight)
+        if (actorPosition.y < -actorHeight - allowance)
         {
             return true;
         }

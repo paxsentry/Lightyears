@@ -9,6 +9,7 @@
 #include "gameplay/WaitStage.h"
 #include "level/GameLevelone.h"
 #include "player/PlayerSpaceship.h"
+#include "enemy/HexagonStage.h"
 
 namespace ly
 {
@@ -25,6 +26,7 @@ namespace ly
 
     void GameLevelone::InitGameStages()
     {
+        AddStage(shared<HexagonStage>{new HexagonStage{ this }});
         AddStage(shared<WaitStage>{new WaitStage{ this, 3.f }});
         AddStage(shared<VanguardStage>{new VanguardStage{ this }});
         AddStage(shared<WaitStage>{new WaitStage{ this, 5.f }});
