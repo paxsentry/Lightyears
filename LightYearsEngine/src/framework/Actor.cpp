@@ -101,6 +101,12 @@ namespace ly
         SetActorLocation(GetActorLocation() + offset);
     }
 
+    void Actor::AddActorRotationOffset(const float newOffset)
+    {
+        sf::Angle offset = sf::degrees(newOffset);
+        AddActorRotationOffset(offset);
+    }
+
     void Actor::AddActorRotationOffset(const sf::Angle& offset)
     {
         SetActorRotation(GetActorRotation() + offset);

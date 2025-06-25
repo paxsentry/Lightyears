@@ -1,4 +1,6 @@
+#include "enemy/HexagonStage.h"
 #include "enemy/TwinBladeStage.h"
+#include "enemy/UFO.h"
 #include "enemy/Vanguard.h"
 #include "enemy/VanguardStage.h"
 #include "framework/Actor.h"
@@ -9,7 +11,6 @@
 #include "gameplay/WaitStage.h"
 #include "level/GameLevelone.h"
 #include "player/PlayerSpaceship.h"
-#include "enemy/HexagonStage.h"
 
 namespace ly
 {
@@ -22,7 +23,10 @@ namespace ly
     }
 
     void GameLevelone::BeginPlay()
-    {}
+    {
+        weak<UFO> newUfo = SpawnActor<UFO>(sf::Vector2f{ 0.f,0.f });
+        newUfo.lock()->SetActorLocation({ GetWindowSize().x / 2.f, GetWindowSize().y / 2.f -200.f});
+    }
 
     void GameLevelone::InitGameStages()
     {
