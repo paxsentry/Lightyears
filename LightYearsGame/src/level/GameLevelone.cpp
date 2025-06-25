@@ -1,7 +1,6 @@
 #include "enemy/HexagonStage.h"
 #include "enemy/TwinBladeStage.h"
-#include "enemy/UFO.h"
-#include "enemy/Vanguard.h"
+#include "enemy/UFOStage.h"
 #include "enemy/VanguardStage.h"
 #include "framework/Actor.h"
 #include "framework/AssetsManager.h"
@@ -23,17 +22,18 @@ namespace ly
     }
 
     void GameLevelone::BeginPlay()
-    {
-        weak<UFO> newUfo = SpawnActor<UFO>(sf::Vector2f{ 0.f,0.f });
-        newUfo.lock()->SetActorLocation({ GetWindowSize().x / 2.f, GetWindowSize().y / 2.f -200.f});
-    }
+    {}
 
     void GameLevelone::InitGameStages()
     {
-        AddStage(shared<HexagonStage>{new HexagonStage{ this }});
+        AddStage(shared<WaitStage>{new WaitStage{ this, 1.f }});
+        AddStage(shared<UFOStage>{new UFOStage{ this }});
+
         AddStage(shared<WaitStage>{new WaitStage{ this, 3.f }});
-        AddStage(shared<VanguardStage>{new VanguardStage{ this }});
+        AddStage(shared<HexagonStage>{new HexagonStage{ this }});
+
         AddStage(shared<WaitStage>{new WaitStage{ this, 5.f }});
+        AddStage(shared<VanguardStage>{new VanguardStage{ this }});
         AddStage(shared<TwinBladeStage>{new TwinBladeStage{ this }});
     }
 }
