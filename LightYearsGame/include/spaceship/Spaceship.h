@@ -14,6 +14,7 @@ namespace ly
         virtual void Shoot();
         virtual void BeginPlay() override;
         virtual void ApplyDamage(float amount) override;
+        HealthComponent& GetHealthComponent() { return mHealthComp; }
 
     private:
         sf::Vector2f mVelocity;
