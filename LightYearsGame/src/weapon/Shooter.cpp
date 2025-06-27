@@ -4,14 +4,23 @@ namespace ly
 {
     void Shooter::Shoot()
     {
-        if (CanShoot() && !IsOnCooldown()) 
+        if (CanShoot() && !IsOnCooldown())
         {
             ShootImplementation();
         }
     }
 
-    Shooter::Shooter(Actor* owner)
-        : mOwner{ owner }
+    void Shooter::IncrementLevel(int amount)
     {
+        if (mCurrentLevel < mMaxLevel)
+        {
+            mCurrentLevel += amount;
+        }
     }
+
+    Shooter::Shooter(Actor* owner)
+        : mOwner{ owner },
+        mCurrentLevel{ 1 },
+        mMaxLevel{ 4 }
+    {}
 }

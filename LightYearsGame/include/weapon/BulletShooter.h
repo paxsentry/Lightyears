@@ -16,6 +16,7 @@ namespace ly
         void SetBulletSpeed(float bulletSpeed) { mBulletSpeed = bulletSpeed; }
         void SetBulletDamage(float bulletDamage) { mBulletDamage = bulletDamage; }
         void SetBulletTexturePath(const std::string& path);
+        virtual void IncrementLevel(int amount) override;
 
     private:
         virtual void ShootImplementation() override;

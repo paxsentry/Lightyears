@@ -12,6 +12,8 @@ namespace ly
             const sf::Vector2f& localOffset = { 0.f, 0.f },
             float width = 60.f);
 
+        virtual void IncrementLevel(int amount) override;
+
     private:
         virtual void ShootImplementation() override;
         float mWidth;
@@ -20,5 +22,7 @@ namespace ly
         BulletShooter mShooter2;
         BulletShooter mShooter3;
         BulletShooter mShooter4;
+        BulletShooter mShooter5;
+        BulletShooter mShooter6;
     };
 }

@@ -16,7 +16,7 @@ namespace ly
 
     bool BulletShooter::IsOnCooldown() const
     {
-        if (mCooldownClock.getElapsedTime().asSeconds() > mCooldownTime)
+        if (mCooldownClock.getElapsedTime().asSeconds() > mCooldownTime / GetCurrentLevel())
         {
             return false;
         }
@@ -27,6 +27,11 @@ namespace ly
     void BulletShooter::SetBulletTexturePath(const std::string& path)
     {
         mBulletTexturePath = path;
+    }
+
+    void BulletShooter::IncrementLevel(int amount)
+    {
+        Shooter::IncrementLevel(amount);
     }
 
     void BulletShooter::ShootImplementation()

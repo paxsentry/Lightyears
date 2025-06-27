@@ -16,6 +16,5 @@ namespace ly
     private:
         unique<BulletShooter> mShooterLeft;
         unique<BulletShooter> mShooterRight;
-
     };
 }
