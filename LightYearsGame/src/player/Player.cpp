@@ -22,11 +22,15 @@ namespace ly
             mCurrentPlayerSpaceship.lock()->SetActorRotation(0.f);
 
             onLifeChange.BroadCast(mLifeCount);
+
+            return mCurrentPlayerSpaceship;
         }
         else
         {
             onLifeExhausted.BroadCast();
         }
+
+        return weak<PlayerSpaceship>{};
     }
 
     void Player::AddLifeCount(unsigned int count)

@@ -10,15 +10,15 @@
 #include "gameplay/WaitStage.h"
 #include "level/GameLevelone.h"
 #include "player/PlayerSpaceship.h"
+#include "player/PlayerManager.h"
 
 namespace ly
 {
     GameLevelone::GameLevelone(Application* application)
         :World(application)
     {
-        testPlayer = SpawnActor<PlayerSpaceship>();
-        testPlayer.lock()->SetActorLocation(sf::Vector2f(512.f, 770.f));
-        testPlayer.lock()->SetActorRotation(0.f);
+        Player newPlayer = PlayerManager::Get().CreateNewPlayer();
+        newPlayer.SpawnSpaceship(this);
     }
 
     void GameLevelone::BeginPlay()
