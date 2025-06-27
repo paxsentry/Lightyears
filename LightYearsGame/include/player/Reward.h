@@ -5,8 +5,10 @@
 namespace ly
 {
     class PlayerSpaceship;
+    class Reward;
 
     using RewardFunc = std::function<void(PlayerSpaceship*)>;
+    using RewardFactoryFunc = std::function<weak<Reward>(World*)>;
 
     class Reward :public Actor
     {
@@ -22,7 +24,6 @@ namespace ly
         virtual void OnActorBeginOverlap(Actor* other) override;
     };
 
-    using RewardFactoryFunc = std::function<weak<Reward>(World*)>;
 
     weak<Reward> CreateHealthReward(World* world);
     weak<Reward> CreateThreeWayShooterReward(World* world);

@@ -26,27 +26,28 @@ namespace ly
 
     void Reward::OnActorBeginOverlap(Actor* other)
     {
-        PlayerSpaceship* player = static_cast<PlayerSpaceship*>(other);
+        PlayerSpaceship* player = dynamic_cast<PlayerSpaceship*>(other);
 
         if (player != nullptr && !player->IsPendingDestruction())
         {
             mRewardFunc(player);
+            Destroy();
         }
     }
 
     weak<Reward> CreateHealthReward(World* world)
     {
-        return CreateReward(world, "SpaceShooterRedux/PNG/pickups/pill_green.png", RewardHealth);
+        return CreateReward(world, "SpaceShooterRedux/PNG/Power-ups/pill_green.png", RewardHealth);
     }
 
     weak<Reward> CreateThreeWayShooterReward(World* world)
     {
-        return CreateReward(world, "SpaceShooterRedux/PNG/pickups/three_shooter_pickup.png", RewardThreeWayShooter);
+        return CreateReward(world, "SpaceShooterRedux/PNG/Power-ups/powerupRed_star.png", RewardThreeWayShooter);
     }
 
     weak<Reward> CreateFrontalWiperReward(World* world)
     {
-        return CreateReward(world, "SpaceShooterRedux/PNG/pickups/front_row_shooter_pickup.png", RewardFrontalWiper);
+        return CreateReward(world, "SpaceShooterRedux/PNG/Power-ups/powerupGreen_star.png", RewardFrontalWiper);
     }
 
     weak<Reward> CreateReward(World* world, const std::string& texturePath, RewardFunc rewardFunc)
