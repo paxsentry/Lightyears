@@ -9,24 +9,25 @@
 #include "gameplay/GameStage.h"
 #include "gameplay/WaitStage.h"
 #include "level/GameLevelone.h"
-#include "player/PlayerSpaceship.h"
 #include "player/PlayerManager.h"
+#include "player/PlayerSpaceship.h"
 
 namespace ly
 {
-    GameLevelone::GameLevelone(Application* application)
-        :World(application)
+    GameLevelOne::GameLevelOne(Application* application)
+        : World(application)
+    { }
+
+    void GameLevelOne::BeginPlay()
     {
         Player newPlayer = PlayerManager::Get().CreateNewPlayer();
-        newPlayer.SpawnSpaceship(this);
+        mPlayerSpaceship = newPlayer.SpawnSpaceship(this);
+        mPlayerSpaceship.lock()->onActorDestroyed.BindAction(GetWeakRef(), &GameLevelOne::PlayerSpaceshipDestroyed);
     }
 
-    void GameLevelone::BeginPlay()
-    {}
-
-    void GameLevelone::InitGameStages()
+    void GameLevelOne::InitGameStages()
     {
-        AddStage(shared<WaitStage>{new WaitStage{ this, 1.f }});
+        AddStage(shared<WaitStage>{new WaitStage{ this, 0.5f }});
         AddStage(shared<UFOStage>{new UFOStage{ this }});
 
         AddStage(shared<WaitStage>{new WaitStage{ this, 3.f }});
@@ -35,5 +36,24 @@ namespace ly
         AddStage(shared<WaitStage>{new WaitStage{ this, 5.f }});
         AddStage(shared<VanguardStage>{new VanguardStage{ this }});
         AddStage(shared<TwinBladeStage>{new TwinBladeStage{ this }});
+    }
+
+    void GameLevelOne::PlayerSpaceshipDestroyed(Actor* playerSpaceship)
+    {
+        mPlayerSpaceship = PlayerManager::Get().GetPlayer()->SpawnSpaceship(this);
+
+        if (!mPlayerSpaceship.expired())
+        {
+            mPlayerSpaceship.lock()->onActorDestroyed.BindAction(GetWeakRef(), &GameLevelOne::PlayerSpaceshipDestroyed);
+        }
+        else
+        {
+            GameOver();
+        }
+    }
+
+    void GameLevelOne::GameOver()
+    {
+        LOG("GAME OVER!!!");
     }
 }

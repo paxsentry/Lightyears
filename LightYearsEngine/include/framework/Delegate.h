@@ -38,7 +38,7 @@ namespace ly
                 }
                 else
                 {
-                    mCallbacks.erase(iter);
+                    iter = mCallbacks.erase(iter);
                 }
             }
         }

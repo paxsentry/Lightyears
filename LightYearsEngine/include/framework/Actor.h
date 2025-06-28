@@ -3,6 +3,7 @@
 #include "Object.h"
 #include <box2d/box2d.h>
 #include <SFML/Graphics.hpp>
+#include "framework/Delegate.h"
 
 namespace ly
 {
@@ -56,6 +57,8 @@ namespace ly
 
         sf::Sprite& GetSprite() { return mSprite; }
         const sf::Sprite& GetSprite() const { return mSprite; }
+
+        Delegate<Actor*> onActorDestroyed;
 
     private:
         void CenterPivot();

@@ -6,14 +6,16 @@ namespace ly
 {
     class PlayerSpaceship;
 
-    class GameLevelone : public World
+    class GameLevelOne : public World
     {
     public:
-        GameLevelone(Application* application);
+        GameLevelOne(Application* application);
 
     private:
         virtual void BeginPlay() override;
-        weak<PlayerSpaceship> testPlayer;
+        weak<PlayerSpaceship> mPlayerSpaceship;
         virtual void InitGameStages() override;
+        void PlayerSpaceshipDestroyed(Actor* playerSpaceship);
+        void GameOver();
     };
 }

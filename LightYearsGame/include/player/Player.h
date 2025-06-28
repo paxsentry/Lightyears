@@ -1,6 +1,6 @@
 #pragma once
-#include "framework/Object.h"
 #include "framework/Delegate.h"
+#include "framework/Object.h"
 
 namespace ly
 {
@@ -25,9 +25,8 @@ namespace ly
         Delegate<> onLifeExhausted;
 
     private:
-        weak<PlayerSpaceship> mCurrentPlayerSpaceship;
         unsigned int mLifeCount;
         unsigned int mScore;
-
+        weak<PlayerSpaceship> mCurrentPlayerSpaceship;
     };
 }

@@ -15,6 +15,6 @@ namespace ly
     {
         AssetsManager::Get().SetAssetsRootDirectory(GetResourceDir());
 
-        weak<GameLevelone> newWorld = LoadWorld<GameLevelone>();
+        weak<GameLevelOne> newWorld = LoadWorld<GameLevelOne>();
     }
 }
