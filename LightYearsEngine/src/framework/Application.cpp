@@ -24,6 +24,7 @@ namespace ly
 
         while (mWindow.isOpen())
         {
+            //sf::Event windowEvent;
             while (const std::optional windowEvent = mWindow.pollEvent())
             {
                 if (windowEvent->is<sf::Event::Closed>())
@@ -90,6 +91,8 @@ namespace ly
         {
             return mCurrentWorld->DispatchEvent(event);
         }
+
+        return false;
     }
 
     void Application::Render()

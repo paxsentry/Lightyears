@@ -144,5 +144,7 @@ namespace ly
         {
             return mHUD->HandleEvent(event);
         }
+
+        return false;
     }
 }
