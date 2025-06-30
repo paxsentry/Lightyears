@@ -8,7 +8,7 @@ namespace ly
     {
     public:
         virtual void Draw(sf::RenderWindow& renderWindow) =0;
-        void NativeInit(sf::RenderWindow& renderWindow);
+        void NativeInit(const sf::RenderWindow& renderWindow);
         bool HasInit() const { return mAlreadyInit; }
         virtual bool HandleEvent(const sf::Event& event);
 
@@ -17,6 +17,6 @@ namespace ly
 
     private:
         bool mAlreadyInit;
-        virtual void Init(sf::RenderWindow& renderWindow);
+        virtual void Init(const sf::RenderWindow& renderWindow);
     };
 }

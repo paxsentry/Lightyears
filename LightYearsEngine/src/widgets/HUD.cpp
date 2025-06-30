@@ -6,7 +6,7 @@ namespace ly
         : mAlreadyInit{ false }
     {}
 
-    void HUD::NativeInit(sf::RenderWindow& renderWindow)
+    void HUD::NativeInit(const sf::RenderWindow& renderWindow)
     {
         if (!mAlreadyInit)
         {
@@ -20,7 +20,7 @@ namespace ly
         return false;
     }
 
-    void HUD::Init(sf::RenderWindow & renderWindow)
+    void HUD::Init(const sf::RenderWindow & renderWindow)
     {
     
     }

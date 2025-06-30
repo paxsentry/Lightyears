@@ -3,6 +3,7 @@
 #include "framework/Core.h"
 #include "framework/World.h"
 #include "gameplay/GameStage.h"
+#include "widgets/HUD.h"
 
 namespace ly
 {
@@ -54,10 +55,23 @@ namespace ly
         }
 
         Tick(deltaTime);
+
+        if (mHUD && !mHUD->HasInit())
+        {
+            mHUD->NativeInit(mOwningApp->GetRenderWindow());
+        }
     }
 
     void World::Tick(float deltaTime)
     {}
+
+    void World::RenderHUD(sf::RenderWindow& window)
+    {
+        if (mHUD)
+        {
+            mHUD->Draw(window);
+        }
+    }
 
     void World::InitGameStages()
     {}
@@ -95,6 +109,8 @@ namespace ly
         {
             actor->Render(window);
         }
+
+        RenderHUD(window);
     }
 
     sf::Vector2u World::GetWindowSize() const
@@ -120,5 +136,13 @@ namespace ly
     void World::AddStage(const shared<GameStage>& newStage)
     {
         mGameStages.push_back(newStage);
+    }
+
+    bool World::DispatchEvent(const sf::Event& event)
+    {
+        if (mHUD)
+        {
+            return mHUD->HandleEvent(event);
+        }
     }
 }
