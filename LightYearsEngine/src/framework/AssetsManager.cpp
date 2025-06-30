@@ -4,16 +4,15 @@ namespace ly
 {
     unique<AssetsManager> AssetsManager::assetsManager{ nullptr };
 
-    AssetsManager::AssetsManager():
+    AssetsManager::AssetsManager() :
         mRootDirectory{}
-    {
-    }
+    {}
 
     AssetsManager& AssetsManager::Get()
     {
         if (!assetsManager)
         {
-            assetsManager = unique<AssetsManager>{new AssetsManager};
+            assetsManager = unique<AssetsManager>{ new AssetsManager };
         }
 
         return *assetsManager;
@@ -59,31 +58,8 @@ namespace ly
 
     void AssetsManager::CleanCycle()
     {
-        for (auto iter = mLoadedTextureMap.begin(); iter != mLoadedTextureMap.end();)
-        {
-            if (iter->second.unique())
-            {
-                LOG("Cleaning texture: %s", iter->first.c_str());
-                iter = mLoadedTextureMap.erase(iter);
-            }
-            else
-            {
-                ++iter;
-            }
-        }
-
-        for (auto iter = mLoadedFontMap.begin(); iter != mLoadedFontMap.end();)
-        {
-            if (iter->second.unique())
-            {
-                LOG("Cleaning font: %s", iter->first.c_str());
-                iter = mLoadedFontMap.erase(iter);
-            }
-            else
-            {
-                ++iter;
-            }
-        }
+        CleanUniqueRef(mLoadedTextureMap);
+        CleanUniqueRef(mLoadedFontMap);
     }
 
     void AssetsManager::SetAssetsRootDirectory(const std::string& directory)

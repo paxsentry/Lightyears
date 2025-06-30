@@ -138,7 +138,7 @@ namespace ly
         mGameStages.push_back(newStage);
     }
 
-    bool World::DispatchEvent(const sf::Event& event)
+    bool World::DispatchEvent(const std::optional<sf::Event>& event)
     {
         if (mHUD)
         {
