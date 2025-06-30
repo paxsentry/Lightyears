@@ -38,6 +38,25 @@ namespace ly
         return shared<sf::Texture>{ nullptr };
     }
 
+    shared<sf::Font> AssetsManager::LoadFont(const std::string& path)
+    {
+        auto found = mLoadedFontMap.find(path);
+
+        if (found != mLoadedFontMap.end())
+        {
+            return found->second;
+        }
+
+        shared<sf::Font> newFont{ new sf::Font };
+        if (newFont->openFromFile(mRootDirectory + path))
+        {
+            mLoadedFontMap.insert({ path, newFont });
+            return newFont;
+        }
+
+        return shared<sf::Font>{nullptr};
+    }
+
     void AssetsManager::CleanCycle()
     {
         for (auto iter = mLoadedTextureMap.begin(); iter != mLoadedTextureMap.end();)
@@ -46,6 +65,19 @@ namespace ly
             {
                 LOG("Cleaning texture: %s", iter->first.c_str());
                 iter = mLoadedTextureMap.erase(iter);
+            }
+            else
+            {
+                ++iter;
+            }
+        }
+
+        for (auto iter = mLoadedFontMap.begin(); iter != mLoadedFontMap.end();)
+        {
+            if (iter->second.unique())
+            {
+                LOG("Cleaning font: %s", iter->first.c_str());
+                iter = mLoadedFontMap.erase(iter);
             }
             else
             {
