@@ -1,6 +1,7 @@
 #pragma once
 #include "widgets/HUD.h"
 #include "widgets/TextWidget.h"
+#include "widgets/ValueGauge.h"
 
 namespace ly
 {
@@ -13,5 +14,8 @@ namespace ly
 
     private:
         TextWidget mFpsText;
+        ValueGauge mPlayerHealthBar;
+
+        virtual void Init(const sf::RenderWindow& window) override;
     };
 }
