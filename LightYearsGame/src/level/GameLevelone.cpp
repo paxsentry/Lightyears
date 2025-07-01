@@ -11,18 +11,21 @@
 #include "level/GameLevelone.h"
 #include "player/PlayerManager.h"
 #include "player/PlayerSpaceship.h"
+#include "widget/GameplayHUD.h"
 
 namespace ly
 {
     GameLevelOne::GameLevelOne(Application* application)
         : World(application)
-    { }
+    {}
 
     void GameLevelOne::BeginPlay()
     {
         Player newPlayer = PlayerManager::Get().CreateNewPlayer();
         mPlayerSpaceship = newPlayer.SpawnSpaceship(this);
         mPlayerSpaceship.lock()->onActorDestroyed.BindAction(GetWeakRef(), &GameLevelOne::PlayerSpaceshipDestroyed);
+
+        mGameplayHUD = SpawnHUD<GameplayHUD>();
     }
 
     void GameLevelOne::InitGameStages()

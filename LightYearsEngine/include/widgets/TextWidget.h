@@ -13,7 +13,6 @@ namespace ly
         void SetText(const std::string& newText);
         void SetTextSize(unsigned int newSize);
 
-
     private:
         sf::Text mText;
         shared<sf::Font> mFont;

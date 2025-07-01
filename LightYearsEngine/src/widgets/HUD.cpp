@@ -20,8 +20,9 @@ namespace ly
         return false;
     }
 
-    void HUD::Init(const sf::RenderWindow & renderWindow)
-    {
-    
-    }
+    void HUD::Init(const sf::RenderWindow& renderWindow)
+    {}
+
+    void HUD::Tick(float deltaTime)
+    {}
 }

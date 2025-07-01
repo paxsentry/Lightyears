@@ -5,14 +5,10 @@ namespace ly
 {
     TextWidget::TextWidget(const std::string& text, const std::string& fontPath, unsigned int characterSize)
         :mFont{ AssetsManager::Get().LoadFont(fontPath) },
-        mText{
-            *(mFont.get()),
-            text,
-            characterSize
-        }
+        mText{ *(mFont.get()), text, characterSize }
     {}
 
-    void TextWidget::SetText(const std::string & newText)
+    void TextWidget::SetText(const std::string& newText)
     {
         mText.setString(newText);
     }
@@ -27,13 +23,15 @@ namespace ly
         mText.setPosition(newLocation);
     }
 
-    void TextWidget::RotationUpdated(const sf::Angle & newRotation)
+    void TextWidget::RotationUpdated(const sf::Angle& newRotation)
     {
         mText.setRotation(newRotation);
     }
 
     void TextWidget::Draw(sf::RenderWindow& window)
     {
+        // TODO check why is this needed
+        mText.setFont(*mFont);
         window.draw(mText);
     }
 }
