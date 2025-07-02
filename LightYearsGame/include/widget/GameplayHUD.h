@@ -5,6 +5,8 @@
 
 namespace ly
 {
+    class Actor;
+
     class GameplayHUD : public HUD
     {
     public:
@@ -17,5 +19,8 @@ namespace ly
         ValueGauge mPlayerHealthBar;
 
         virtual void Init(const sf::RenderWindow& window) override;
+        void PlayerHealthUpdated(float amount, float currentHealth, float maxHealth);
+        void RefreshHealthBar();
+        void PlayerSpaceshipDestroyed(Actor* actor);
     };
 }

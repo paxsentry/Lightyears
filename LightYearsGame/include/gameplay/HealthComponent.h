@@ -16,7 +16,6 @@ namespace ly {
     private:
         void TakeDamage(float amount);
         void HealthEmpty();
-        void HealthRegen(float amount);
         float mHealth;
         float mMaxHealth;
     };

@@ -25,6 +25,8 @@ namespace ly
             mHealth = mMaxHealth;
         }
 
+        onHealthChanged.BroadCast(amount, mHealth, mMaxHealth);
+
         if (amount < 0)
         {
             TakeDamage(amount);
@@ -33,12 +35,6 @@ namespace ly
                 HealthEmpty();
             }
         }
-        //else
-        //{
-        //    HealthRegen(amount);
-        //}
-
-        onHealthChanged.BroadCast(amount, mHealth, mMaxHealth);
     }
 
     void HealthComponent::TakeDamage(float amount)
@@ -50,9 +46,4 @@ namespace ly
     {
         onHealthEmtpy.BroadCast();
     }
-
-    /*void HealthComponent::HealthRegen(float amount)
-    {
-        LOG("Healed %f, health now: %f from %f", amount, mHealth, mMaxHealth);
-    }*/
 }
