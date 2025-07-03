@@ -18,6 +18,11 @@ namespace ly
         mText.setCharacterSize(newSize);
     }
 
+    sf::FloatRect TextWidget::GetBound() const
+    {
+        return mText.getGlobalBounds();
+    }
+
     void TextWidget::LocationUpdated(const sf::Vector2f& newLocation)
     {
         mText.setPosition(newLocation);

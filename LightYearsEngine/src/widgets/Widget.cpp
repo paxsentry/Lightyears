@@ -45,4 +45,19 @@ namespace ly
     {
         mIsVisible = newVisibility;
     }
+
+    sf::FloatRect Widget::GetBound() const
+    {
+        return sf::FloatRect();
+    }
+
+    sf::Vector2f Widget::GetCenterPosition() const
+    {
+        sf::FloatRect bound = GetBound();
+        auto csd= sf::Vector2f{bound.position.x + bound.size.x/2.f, bound.position.y + bound.size.y/2.f};
+
+        auto wer = bound.getCenter();
+
+        return csd;
+    }
 }

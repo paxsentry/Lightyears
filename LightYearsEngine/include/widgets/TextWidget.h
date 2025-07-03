@@ -12,6 +12,7 @@ namespace ly
 
         void SetText(const std::string& newText);
         void SetTextSize(unsigned int newSize);
+        virtual sf::FloatRect GetBound() const override;
 
     private:
         sf::Text mText;

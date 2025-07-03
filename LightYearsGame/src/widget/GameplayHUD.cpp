@@ -1,14 +1,17 @@
-#include "widget/GameplayHUD.h"
+#include "framework/Actor.h"
+#include "player/Player.h"
 #include "player/PlayerManager.h"
 #include "player/PlayerSpaceship.h"
-#include "player/Player.h"
-#include "framework/Actor.h"
+#include "widget/GameplayHUD.h"
 
 namespace ly
 {
     GameplayHUD::GameplayHUD()
         :mFpsText{ "FPS:" },
-        mPlayerHealthBar{}
+        mPlayerHealthBar{},
+        mHealthyHealthBarColor{ 128,255,128,255 },
+        mCriticalHealthBarColor{ 255,128,128,255 },
+        mCriticalThreshold{ 0.3f }
     {
         mFpsText.SetTextSize(27);
     }
@@ -37,6 +40,14 @@ namespace ly
     void GameplayHUD::PlayerHealthUpdated(float amount, float currentHealth, float maxHealth)
     {
         mPlayerHealthBar.UpdateValue(currentHealth, maxHealth);
+        if (currentHealth / maxHealth < mCriticalThreshold)
+        {
+            mPlayerHealthBar.SetForegroundColor(mCriticalHealthBarColor);
+        }
+        else
+        {
+            mPlayerHealthBar.SetForegroundColor(mHealthyHealthBarColor);
+        }
     }
 
     void GameplayHUD::RefreshHealthBar()

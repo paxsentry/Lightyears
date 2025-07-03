@@ -12,10 +12,16 @@ namespace ly
             const sf::Color& backgroundColor = sf::Color{ 128,128,128,255 });
         void UpdateValue(float value, float maxValue);
 
+        virtual sf::FloatRect GetBound() const override;
+        void SetTextSize(unsigned int textSize);
+        void SetForegroundColor(const sf::Color color);
+        void SetBackgroundColor(const sf::Color color);
+
     private:
         virtual void Draw(sf::RenderWindow& window) override;
         virtual void LocationUpdated(const sf::Vector2f& newLocation) override;
         virtual void RotationUpdated(const sf::Angle& newRotation) override;
+        void CenterText();
 
         sf::Text mText;
         shared<sf::Font> mTextFont;

@@ -15,6 +15,8 @@ namespace ly
     {
         mBarFront.setFillColor(mForegroundColor);
         mBarBack.setFillColor(mBackgroundColor);
+        mText.setFont(*mTextFont);
+        SetTextSize(20);
     }
 
     void ValueGauge::UpdateValue(float value, float maxValue)
@@ -29,11 +31,32 @@ namespace ly
 
         sf::Vector2f barsize = mBarBack.getSize();
         mBarFront.setSize({ barsize.x * mPercent, barsize.y });
+        CenterText();
+    }
+
+    sf::FloatRect ValueGauge::GetBound() const
+    {
+        return mBarBack.getGlobalBounds();
+    }
+
+    void ValueGauge::SetTextSize(unsigned int textSize)
+    {
+        mText.setCharacterSize(textSize);
+    }
+
+    void ValueGauge::SetForegroundColor(const sf::Color color)
+    {
+        mBarFront.setFillColor(color);
+    }
+
+    void ValueGauge::SetBackgroundColor(const sf::Color color)
+    {
+        mBarBack.setFillColor(color);
     }
 
     void ValueGauge::Draw(sf::RenderWindow& window)
     {
-        mText.setFont(*mTextFont);
+       // mText.setFont(*mTextFont);
         window.draw(mBarBack);
         window.draw(mBarFront);
         window.draw(mText);
@@ -41,9 +64,9 @@ namespace ly
 
     void ValueGauge::LocationUpdated(const sf::Vector2f& newLocation)
     {
-        mText.setPosition(newLocation);
         mBarFront.setPosition(newLocation);
         mBarBack.setPosition(newLocation);
+        CenterText();
     }
 
     void ValueGauge::RotationUpdated(const sf::Angle& newRotation)
@@ -51,5 +74,13 @@ namespace ly
         mText.setRotation(newRotation);
         mBarFront.setRotation(newRotation);
         mBarBack.setRotation(newRotation);
+    }
+
+    void ValueGauge::CenterText()
+    {
+        sf::Vector2f widgetCenter = GetCenterPosition();
+        sf::FloatRect textBound = mText.getGlobalBounds();
+
+        mText.setPosition(widgetCenter - sf::Vector2f{ textBound.size.x / 2.f, textBound.size.y});
     }
 }

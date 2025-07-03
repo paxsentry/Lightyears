@@ -22,5 +22,9 @@ namespace ly
         void PlayerHealthUpdated(float amount, float currentHealth, float maxHealth);
         void RefreshHealthBar();
         void PlayerSpaceshipDestroyed(Actor* actor);
+
+        sf::Color mHealthyHealthBarColor;
+        sf::Color mCriticalHealthBarColor;
+        float mCriticalThreshold;
     };
 }
