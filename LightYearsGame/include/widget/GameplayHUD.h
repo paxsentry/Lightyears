@@ -2,6 +2,7 @@
 #include "widgets/HUD.h"
 #include "widgets/TextWidget.h"
 #include "widgets/ValueGauge.h"
+#include "widgets/ImageWidget.h"
 
 namespace ly
 {
@@ -17,6 +18,7 @@ namespace ly
     private:
         TextWidget mFpsText;
         ValueGauge mPlayerHealthBar;
+        ImageWidget mPlayerLifeIcon;
 
         virtual void Init(const sf::RenderWindow& window) override;
         void PlayerHealthUpdated(float amount, float currentHealth, float maxHealth);
@@ -26,5 +28,7 @@ namespace ly
         sf::Color mHealthyHealthBarColor;
         sf::Color mCriticalHealthBarColor;
         float mCriticalThreshold;
+
+        float mWidgetSpacing;
     };
 }
