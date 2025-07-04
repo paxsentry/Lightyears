@@ -15,7 +15,7 @@ namespace ly
         sf::Angle GetWidgetRotation() const { return mWidgetTransform.getRotation(); }
         void SetVisibility(bool newVisibility);
         bool GetVisibility() const { return mIsVisible; }
-        virtual sf::FloatRect GetBound() const;
+        virtual sf::FloatRect GetBound() const = 0;
         sf::Vector2f GetCenterPosition() const;
 
     protected:

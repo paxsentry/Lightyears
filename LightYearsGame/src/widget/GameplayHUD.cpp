@@ -9,13 +9,15 @@ namespace ly
     GameplayHUD::GameplayHUD()
         :mFpsText{ "FPS:" },
         mPlayerHealthBar{},
+        mPlayerLifeIcon{ "SpaceShooterRedux/PNG/UI/playerLife1_blue.png" },
+        mPlayerLifeText{ "" },
         mHealthyHealthBarColor{ 128,255,128,255 },
         mCriticalHealthBarColor{ 255,128,128,255 },
         mCriticalThreshold{ 0.3f },
-        mPlayerLifeIcon{ "SpaceShooterRedux/PNG/UI/playerLife1_blue.png" },
-        mWidgetSpacing {10.f}
+        mWidgetSpacing{ 10.f }
     {
         mFpsText.SetTextSize(27);
+        mPlayerLifeText.SetTextSize(27);
     }
 
     void GameplayHUD::Draw(sf::RenderWindow& window)
@@ -23,6 +25,7 @@ namespace ly
         mFpsText.NativeDraw(window);
         mPlayerHealthBar.NativeDraw(window);
         mPlayerLifeIcon.NativeDraw(window);
+        mPlayerLifeText.NativeDraw(window);
     }
 
     void GameplayHUD::Tick(float deltaTime)
@@ -37,12 +40,16 @@ namespace ly
         auto windowSize = window.getSize();
         mPlayerHealthBar.SetWidgetLocation(sf::Vector2f{ 20.f, windowSize.y - 50.f });
 
-        sf::Vector2f lifeIconPos = mPlayerHealthBar.GetWidgetLocation();
-        lifeIconPos += sf::Vector2f{ mPlayerHealthBar.GetBound().size.x + mWidgetSpacing, 0.f };
+        sf::Vector2f nextWidgetPos = mPlayerHealthBar.GetWidgetLocation();
+        nextWidgetPos += sf::Vector2f{ mPlayerHealthBar.GetBound().size.x + mWidgetSpacing, 0.f };
 
-        mPlayerLifeIcon.SetWidgetLocation(lifeIconPos);
+        mPlayerLifeIcon.SetWidgetLocation(nextWidgetPos);
+
+        nextWidgetPos += sf::Vector2f{ mPlayerLifeIcon.GetBound().size.x + mWidgetSpacing, 0.f };
+        mPlayerLifeText.SetWidgetLocation(nextWidgetPos);
 
         RefreshHealthBar();
+        ConnectPlayerLifeCount();
     }
 
     void GameplayHUD::PlayerHealthUpdated(float amount, float currentHealth, float maxHealth)
@@ -70,9 +77,24 @@ namespace ly
             HealthComponent& healthComp = player->GetCurrentSpaceship().lock()->GetHealthComponent();
 
             healthComp.onHealthChanged.BindAction(GetWeakRef(), &GameplayHUD::PlayerHealthUpdated);
-
-            mPlayerHealthBar.UpdateValue(healthComp.GetHealth(), healthComp.GetMaxHealth());
+            PlayerHealthUpdated(0.f, healthComp.GetHealth(), healthComp.GetMaxHealth());
         }
+    }
+
+    void GameplayHUD::ConnectPlayerLifeCount()
+    {
+        Player* player = PlayerManager::Get().GetPlayer();
+        if (player)
+        {
+            int lifeCount = player->GetLifeCount();
+            mPlayerLifeText.SetText(std::to_string(lifeCount));
+            player->onLifeChange.BindAction(GetWeakRef(), &GameplayHUD::PlayerLifeCountUpdated);
+        }
+    }
+
+    void GameplayHUD::PlayerLifeCountUpdated(int amount)
+    {
+        mPlayerLifeText.SetText(std::to_string(amount));
     }
 
     void GameplayHUD::PlayerSpaceshipDestroyed(Actor* actor)

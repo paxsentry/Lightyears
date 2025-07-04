@@ -17,6 +17,11 @@ namespace ly
         }
     }
 
+    sf::FloatRect ImageWidget::GetBound() const
+    {
+        return mSprite.getGlobalBounds();
+    }
+
     void ImageWidget::Draw(sf::RenderWindow& window)
     {
         window.draw(mSprite);

@@ -9,6 +9,7 @@ namespace ly
     public:
         ImageWidget(const std::string& imagePath);
         void SetImage(const shared<sf::Texture>& newTexture);
+        virtual sf::FloatRect GetBound() const override;
 
     private:
         shared<sf::Texture> mTexture;

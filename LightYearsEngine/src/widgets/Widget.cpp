@@ -46,11 +46,6 @@ namespace ly
         mIsVisible = newVisibility;
     }
 
-    sf::FloatRect Widget::GetBound() const
-    {
-        return sf::FloatRect();
-    }
-
     sf::Vector2f Widget::GetCenterPosition() const
     {
         sf::FloatRect bound = GetBound();
