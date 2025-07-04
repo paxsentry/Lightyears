@@ -6,7 +6,9 @@ namespace ly
     TextWidget::TextWidget(const std::string& text, const std::string& fontPath, unsigned int characterSize)
         :mFont{ AssetsManager::Get().LoadFont(fontPath) },
         mText{ *(mFont.get()), text, characterSize }
-    {}
+    {
+        mText.setFont(*mFont);
+    }
 
     void TextWidget::SetText(const std::string& newText)
     {

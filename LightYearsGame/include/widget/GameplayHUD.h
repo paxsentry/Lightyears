@@ -20,12 +20,15 @@ namespace ly
         ValueGauge mPlayerHealthBar;
         ImageWidget mPlayerLifeIcon;
         TextWidget mPlayerLifeText;
+        ImageWidget mPlayerScoreIcon;
+        TextWidget mPlayerScoreText;
 
         virtual void Init(const sf::RenderWindow& window) override;
         void PlayerHealthUpdated(float amount, float currentHealth, float maxHealth);
         void RefreshHealthBar();
-        void ConnectPlayerLifeCount();
+        void ConnectPlayerStats();
         void PlayerLifeCountUpdated(int amount);
+        void PlayerScoreUpdated(int amount);
         void PlayerSpaceshipDestroyed(Actor* actor);
 
         sf::Color mHealthyHealthBarColor;
