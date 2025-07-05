@@ -6,15 +6,15 @@ namespace ly
 {
     VanguardStage::VanguardStage(World* world)
         : GameStage{ world },
-        mSpawnInterval{ 1.5f },
+        mSpawnInterval{ 1.0f },
         mSwitchInterval{ 4.f },
         mSpawnDistanceToEdge{ 100.f },
         mLeftSpawnLocation{ 0.0f,0.0f },
         mRightSpawnLocation{ 0.0f,0.0f },
         mSpawnLocation{ 0.0f,0.0f },
-        mRowsToSpawn{ 3 },
-        mRowSpawnCount{ 0 },
-        mVanguardsPerRow{ 1 },
+        mRowsToSpawn{ 4 },
+        mRowSpawnCount{ 2 },
+        mVanguardsPerRow{ 6 },
         mCurrentRowVanguardCount{ 0 }
     {}
 

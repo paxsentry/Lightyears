@@ -10,10 +10,12 @@ namespace ly
         EnemySpaceship(World* owningWorld,
             const std::string& texturePath,
             float collisionDamage = 200.f,
+            float rewardSpawnWeight = .5f,
             const List<RewardFactoryFunc> rewards = {
                 CreateHealthReward,
                 CreateThreeWayShooterReward,
-                CreateFrontalWiperReward
+                CreateFrontalWiperReward,
+                CreateLifeReward
             });
 
         virtual void Tick(float deltaTime) override;
@@ -22,6 +24,7 @@ namespace ly
     private:
         void SpawnReward();
         float mCollisionDamage;
+        float mRewardSpawnWeight;
         unsigned int mScoreReward;
         virtual void OnActorBeginOverlap(Actor* other) override;
         virtual void Blew() override;
