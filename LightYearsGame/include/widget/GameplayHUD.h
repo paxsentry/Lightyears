@@ -3,6 +3,7 @@
 #include "widgets/TextWidget.h"
 #include "widgets/ValueGauge.h"
 #include "widgets/ImageWidget.h"
+#include "widgets/ButtonWidget.h"
 
 namespace ly
 {
@@ -22,6 +23,8 @@ namespace ly
         TextWidget mPlayerLifeText;
         ImageWidget mPlayerScoreIcon;
         TextWidget mPlayerScoreText;
+
+        ButtonWidget mTestButton;
 
         virtual void Init(const sf::RenderWindow& window) override;
         void PlayerHealthUpdated(float amount, float currentHealth, float maxHealth);
