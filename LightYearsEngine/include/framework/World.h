@@ -30,7 +30,7 @@ namespace ly
         sf::Vector2u GetWindowSize() const;
         void CleanCycle();
         void AddStage(const shared<GameStage>& newStage);
-        bool DispatchEvent(const std::optional<sf::Event>& event);
+        bool DispatchEvent(const sf::Event& event);
 
     private:
         virtual void BeginPlay();

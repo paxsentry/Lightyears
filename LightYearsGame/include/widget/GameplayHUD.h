@@ -15,6 +15,7 @@ namespace ly
         GameplayHUD();
         virtual void Draw(sf::RenderWindow& window) override;
         virtual void Tick(float deltaTime) override;
+        virtual bool HandleEvent(const sf::Event& event) override;
 
     private:
         TextWidget mFpsText;
@@ -39,5 +40,6 @@ namespace ly
         float mCriticalThreshold;
 
         float mWidgetSpacing;
+        void TestButtonclicked();
     };
 }

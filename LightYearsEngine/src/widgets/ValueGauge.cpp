@@ -15,7 +15,6 @@ namespace ly
     {
         mBarFront.setFillColor(mForegroundColor);
         mBarBack.setFillColor(mBackgroundColor);
-        mText.setFont(*mTextFont);
         SetTextSize(20);
     }
 

@@ -23,8 +23,8 @@ namespace ly
         virtual void RotationUpdated(const sf::Angle& newRotation) override;
         void CenterText();
 
-        sf::Text mText;
         shared<sf::Font> mTextFont;
+        sf::Text mText;
 
         sf::RectangleShape mBarFront;
         sf::RectangleShape mBarBack;

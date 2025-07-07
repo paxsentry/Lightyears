@@ -23,7 +23,7 @@ namespace ly
     private:
         void TickInternal(float deltaTime);
         void RenderInternal();
-        bool DispatchEvent(const std::optional<sf::Event>& event);
+        bool DispatchEvent(const sf::Event& event);
 
         virtual void Render();
         virtual void Tick(float deltaTime);

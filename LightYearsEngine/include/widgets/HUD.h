@@ -10,7 +10,7 @@ namespace ly
         virtual void Draw(sf::RenderWindow& renderWindow) =0;
         void NativeInit(const sf::RenderWindow& renderWindow);
         bool HasInit() const { return mAlreadyInit; }
-        virtual bool HandleEvent(const std::optional<sf::Event>& event);
+        virtual bool HandleEvent(const sf::Event& event);
         virtual void Tick(float deltaTime);
 
     protected:
