@@ -42,10 +42,12 @@ namespace ly
         {
             if (mouseEvent->button == sf::Mouse::Button::Left)
             {
-                if (mButtonSprite.getGlobalBounds().contains({
-                    (float)mouseEvent->position.x,
-                    (float)mouseEvent->position.y })
-                    && mIsButtonDown);
+                sf::Vector2f clickPos{
+                    static_cast<float>(mouseEvent->position.x),
+                    static_cast<float>(mouseEvent->position.y)
+                };
+
+                if (mButtonSprite.getGlobalBounds().contains(clickPos) && mIsButtonDown)
                 {
                     onButtonClick.BroadCast();
                     handled = true;
@@ -56,10 +58,12 @@ namespace ly
         }
         else if (const auto* mouseEvent = windowEvent.getIf<sf::Event::MouseButtonPressed>())
         {
-            if (mButtonSprite.getGlobalBounds().contains({
-                    (float)mouseEvent->position.x,
-                    (float)mouseEvent->position.y })
-                    )
+            sf::Vector2f clickPos{
+                    static_cast<float>(mouseEvent->position.x),
+                    static_cast<float>(mouseEvent->position.y)
+            };
+
+            if (mButtonSprite.getGlobalBounds().contains(clickPos))
             {
                 ButtonDown();
                 handled = true;
@@ -69,9 +73,12 @@ namespace ly
         {
             if (!sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
             {
-                if (mButtonSprite.getGlobalBounds().contains({
-                    (float)mouseEvent->position.x,
-                    (float)mouseEvent->position.y }))
+                sf::Vector2f clickPos{
+                    static_cast<float>(mouseEvent->position.x),
+                    static_cast<float>(mouseEvent->position.y)
+                };
+
+                if (mButtonSprite.getGlobalBounds().contains(clickPos))
                 {
                     MouseHover();
                 }
@@ -79,11 +86,14 @@ namespace ly
                 {
                     ButtonUp();
                 }
+
                 handled = true;
             }
         }
 
-        return handled || Widget::HandleEvent(windowEvent);
+        handled |= Widget::HandleEvent(windowEvent);
+
+        return handled;
     }
 
     void ButtonWidget::Draw(sf::RenderWindow& window)
@@ -111,6 +121,7 @@ namespace ly
 
         mButtonText.setPosition(widgetCenter - sf::Vector2f{ textBound.size.x / 2.f, textBound.size.y });
     }
+
     void ButtonWidget::ButtonUp()
     {
         mIsButtonDown = false;

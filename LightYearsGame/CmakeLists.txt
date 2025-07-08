@@ -47,6 +47,9 @@ add_executable(${LIGHT_YEARS_GAME_TARGET_NAME}
     ${CMAKE_CURRENT_SOURCE_DIR}/include/level/GameLevelOne.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/level/GameLevelOne.cpp
 
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/level/MainMenu.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/level/MainMenu.cpp
+
     ${CMAKE_CURRENT_SOURCE_DIR}/include/enemy/VanguardStage.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/enemy/VanguardStage.cpp
 
@@ -70,6 +73,9 @@ add_executable(${LIGHT_YEARS_GAME_TARGET_NAME}
 
     ${CMAKE_CURRENT_SOURCE_DIR}/include/widget/GameplayHUD.h
     ${CMAKE_CURRENT_SOURCE_DIR}/src/widget/GameplayHUD.cpp
+
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/widget/MainMenuHUD.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/widget/MainMenuHUD.cpp
 )
 
 target_include_directories(${LIGHT_YEARS_GAME_TARGET_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
