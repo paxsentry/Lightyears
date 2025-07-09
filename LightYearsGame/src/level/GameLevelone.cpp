@@ -1,3 +1,4 @@
+#include "enemy/BossStage.h"
 #include "enemy/ChaosStage.h"
 #include "enemy/HexagonStage.h"
 #include "enemy/TwinBladeStage.h"
@@ -31,7 +32,7 @@ namespace ly
 
     void GameLevelOne::InitGameStages()
     {
-        AddStage(shared<ChaosStage>{new ChaosStage{ this }});
+        AddStage(shared<BossStage>{new BossStage{ this }});
 
         AddStage(shared<VanguardStage>{new VanguardStage{ this }});
         AddStage(shared<WaitStage>{new WaitStage{ this, 0.5f }});
@@ -43,6 +44,8 @@ namespace ly
         AddStage(shared<WaitStage>{new WaitStage{ this, 3.f }});
 
         AddStage(shared<UFOStage>{new UFOStage{ this }});
+        AddStage(shared<WaitStage>{new WaitStage{ this, 3.f }});
+        AddStage(shared<ChaosStage>{new ChaosStage{ this }});
     }
 
     void GameLevelOne::PlayerSpaceshipDestroyed(Actor* playerSpaceship)
