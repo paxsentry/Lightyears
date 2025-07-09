@@ -29,7 +29,7 @@ namespace ly
             {
                 if (windowEvent->is<sf::Event::Closed>())
                 {
-                    mWindow.close();
+                    QuitApplication();
                 }
                 else
                 {
@@ -49,6 +49,11 @@ namespace ly
             // The actual framerate
             // LOG("ticking at the set FPS: %f", 1.f / frameDeltaTime);
         }
+    }
+
+    void Application::QuitApplication()
+    {
+        mWindow.close();
     }
 
     void Application::TickInternal(float deltaTime)
@@ -73,6 +78,12 @@ namespace ly
             {
                 mCurrentWorld->CleanCycle();
             }
+        }
+
+        if (mPendingWorld && mPendingWorld != mCurrentWorld)
+        {
+            mCurrentWorld = mPendingWorld;
+            mCurrentWorld->BeginPlayInternal();
         }
     }
 

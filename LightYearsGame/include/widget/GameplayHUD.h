@@ -25,8 +25,6 @@ namespace ly
         ImageWidget mPlayerScoreIcon;
         TextWidget mPlayerScoreText;
 
-        ButtonWidget mTestButton;
-
         virtual void Init(const sf::RenderWindow& window) override;
         void PlayerHealthUpdated(float amount, float currentHealth, float maxHealth);
         void RefreshHealthBar();
@@ -40,6 +38,5 @@ namespace ly
         float mCriticalThreshold;
 
         float mWidgetSpacing;
-        void TestButtonclicked();
     };
 }
