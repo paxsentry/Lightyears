@@ -31,6 +31,17 @@ namespace ly
         mShooter6.IncrementLevel(amount);
     }
 
+    void FrontalWiper::SetCurrentLevel(int level)
+    {
+        Shooter::SetCurrentLevel(level);
+        mShooter1.SetCurrentLevel(level);
+        mShooter2.SetCurrentLevel(level);
+        mShooter3.SetCurrentLevel(level);
+        mShooter4.SetCurrentLevel(level);
+        mShooter5.SetCurrentLevel(level);
+        mShooter6.SetCurrentLevel(level);
+    }
+
     void FrontalWiper::ShootImplementation()
     {
         mShooter1.Shoot();

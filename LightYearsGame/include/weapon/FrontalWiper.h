@@ -13,6 +13,7 @@ namespace ly
             float width = 60.f);
 
         virtual void IncrementLevel(int amount) override;
+        virtual void SetCurrentLevel(int level) override;
 
     private:
         virtual void ShootImplementation() override;

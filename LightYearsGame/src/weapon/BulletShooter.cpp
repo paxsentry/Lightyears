@@ -34,6 +34,11 @@ namespace ly
         Shooter::IncrementLevel(amount);
     }
 
+    void BulletShooter::SetCurrentLevel(int level)
+    {
+        Shooter::SetCurrentLevel(level);
+    }
+
     void BulletShooter::ShootImplementation()
     {
         sf::Vector2f ownerForwardDirection = GetOwner()->GetActorForwardDirection();
