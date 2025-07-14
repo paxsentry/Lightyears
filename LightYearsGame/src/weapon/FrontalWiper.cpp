@@ -4,13 +4,13 @@ namespace ly
 {
     FrontalWiper::FrontalWiper(Actor* owner, float cooldownTime, const sf::Vector2f& localOffset, float width)
         : Shooter{ owner },
+        mWidth{ width },
         mShooter1{ owner, cooldownTime, {localOffset.x, localOffset.y - width / 2.f}, 0.f },
         mShooter2{ owner, cooldownTime, {localOffset.x, localOffset.y - width / 6.f}, 0.f },
         mShooter3{ owner, cooldownTime, {localOffset.x, localOffset.y + width / 6.f}, 0.f },
         mShooter4{ owner, cooldownTime, {localOffset.x, localOffset.y + width / 2.f}, 0.f },
-        mWidth{ width },
-        mShooter5{ owner, .1f, {localOffset.x, localOffset.y + width / 1.5f}, 15.f },
-        mShooter6{ owner, .1f, {localOffset.x, localOffset.y - width / 1.5f}, -15.f }
+        mShooter5{ owner, cooldownTime / 1.5f, {localOffset.x, localOffset.y + width / 1.5f}, 15.f },
+        mShooter6{ owner, cooldownTime / 1.5f, {localOffset.x, localOffset.y - width / 1.5f}, -15.f }
     {
         mShooter1.SetBulletTexturePath("SpaceShooterRedux/PNG/Lasers/laserGreen10.png");
         mShooter2.SetBulletTexturePath("SpaceShooterRedux/PNG/Lasers/laserBlue16.png");

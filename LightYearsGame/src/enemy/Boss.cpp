@@ -4,12 +4,13 @@
 namespace ly
 {
     Boss::Boss(World* world)
-        : EnemySpaceship{ world, "SpaceShooterRedux/PNG/playerShip3_red.png" }
-        , mSpeed{ 100.f },
+        : EnemySpaceship{ world, "SpaceShooterRedux/PNG/playerShip3_red.png" },
+        mSpeed{ 100.f },
+        mBaseSpeed{ 100.f },
         mSwitchDistanceToEdge{ 100.f },
-        mBaseShooterLeft{ this, 1.f, {50.f, -50.f} },
+        mBaseShooterLeft{ this, 1.5f, {50.f, -50.f} },
         mBaseShooterRight{ this, 1.f, {50.f, 50.f} },
-        mThreewayShooter{ this, 4.f, {100.f, 0.f} },
+        mThreewayShooter{ this, 5.f, {100.f, 0.f} },
         mFrontalWiperLeft{ this, 5.f, {80.f, -100.f} },
         mFrontalWiperRight{ this, 5.f, {80.f, 100.f} },
         mStage{ 1 },
@@ -83,6 +84,7 @@ namespace ly
         mThreewayShooter.SetCurrentLevel(mStage);
         mFrontalWiperLeft.SetCurrentLevel(mStage);
         mFrontalWiperRight.SetCurrentLevel(mStage);
+        mSpeed = mStage * mBaseSpeed;
     }
 
     void Boss::HealthChanged(float amount, float currentHealth, float maxHealth)
@@ -99,7 +101,7 @@ namespace ly
             SetStage(3);
         }
 
-        if (percentLeft < 0.2f)
+        if (percentLeft < 0.3f)
         {
             SetStage(4);
         }
