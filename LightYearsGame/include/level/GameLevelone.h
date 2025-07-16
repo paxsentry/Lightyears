@@ -14,10 +14,14 @@ namespace ly
 
     private:
         virtual void BeginPlay() override;
+        virtual void InitGameStages() override;
+        virtual void AllGameStageFinished() override;
+
         weak<PlayerSpaceship> mPlayerSpaceship;
         weak<GameplayHUD> mGameplayHUD;
-        virtual void InitGameStages() override;
         void PlayerSpaceshipDestroyed(Actor* playerSpaceship);
         void GameOver();
+        void QuitGame();
+        void RestartGame();
     };
 }
