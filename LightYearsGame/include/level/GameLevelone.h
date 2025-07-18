@@ -23,5 +23,6 @@ namespace ly
         void GameOver();
         void QuitGame();
         void RestartGame();
+        void SpawnCosmetics();
     };
 }

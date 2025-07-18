@@ -137,6 +137,11 @@ namespace ly
         return mOwningWorld->GetWindowSize();
     }
 
+    void Actor::SetTextureRepeated(bool repeat)
+    {
+        mTexture->setRepeated(repeat);
+    }
+
     void Actor::CenterPivot()
     {
         sf::FloatRect bound = mSprite.getGlobalBounds();

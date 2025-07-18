@@ -60,6 +60,7 @@ namespace ly
 
         Delegate<Actor*> onActorDestroyed;
 
+        void SetTextureRepeated(bool repeat);
     private:
         void CenterPivot();
         void InitPhysics();

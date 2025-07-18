@@ -7,6 +7,7 @@
 #include "framework/Actor.h"
 #include "framework/Application.h"
 #include "framework/AssetsManager.h"
+#include "framework/BackdropActor.h"
 #include "framework/TimerManager.h"
 #include "framework/World.h"
 #include "gameplay/GameStage.h"
@@ -24,6 +25,7 @@ namespace ly
 
     void GameLevelOne::BeginPlay()
     {
+        SpawnCosmetics();
         Player& newPlayer = PlayerManager::Get().CreateNewPlayer();
         mPlayerSpaceship = newPlayer.SpawnSpaceship(this);
         mPlayerSpaceship.lock()->onActorDestroyed.BindAction(GetWeakRef(), &GameLevelOne::PlayerSpaceshipDestroyed);
@@ -39,14 +41,16 @@ namespace ly
         AddStage(shared<WaitStage>{new WaitStage{ this, 0.5f }});
 
         AddStage(shared<TwinBladeStage>{new TwinBladeStage{ this }});
-        AddStage(shared<WaitStage>{new WaitStage{ this, 5.f }});
+        AddStage(shared<WaitStage>{new WaitStage{ this, 1.f }});
 
         AddStage(shared<HexagonStage>{new HexagonStage{ this }});
-        AddStage(shared<WaitStage>{new WaitStage{ this, 3.f }});
+        AddStage(shared<WaitStage>{new WaitStage{ this, 2.f }});
 
         AddStage(shared<UFOStage>{new UFOStage{ this }});
         AddStage(shared<WaitStage>{new WaitStage{ this, 3.f }});
+
         AddStage(shared<ChaosStage>{new ChaosStage{ this }});
+        AddStage(shared<WaitStage>{new WaitStage{ this, 3.f }});
 
         AddStage(shared<BossStage>{new BossStage{ this }});
     }
@@ -79,6 +83,11 @@ namespace ly
     {
         PlayerManager::Get().Reset();
         GetApplication()->LoadWorld<GameLevelOne>();
+    }
+
+    void GameLevelOne::SpawnCosmetics()
+    {
+        auto backdropActor = SpawnActor<BackdropActor>("SpaceShooterRedux/Backgrounds/darkPurple.png");
     }
 
     void GameLevelOne::QuitGame()
