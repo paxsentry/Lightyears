@@ -61,6 +61,8 @@ namespace ly
         Delegate<Actor*> onActorDestroyed;
 
         void SetTextureRepeated(bool repeat);
+        const sf::Texture& GetEmptyTexture();
+
     private:
         void CenterPivot();
         void InitPhysics();
@@ -73,7 +75,6 @@ namespace ly
 
         sf::Sprite mSprite;
         shared<sf::Texture> mTexture;
-        const sf::Texture& GetEmptyTexture();
 
         b2BodyId mPhysicsBody;
         bool mPhysicsEnabled;
