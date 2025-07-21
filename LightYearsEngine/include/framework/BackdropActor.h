@@ -6,7 +6,7 @@ namespace ly
     class BackdropActor : public Actor
     {
     public:
-        BackdropActor(World* owningWorld, const std::string& texturePath, const sf::Vector2f& velocity = sf::Vector2f{ 0.f, 50.f });
+        BackdropActor(World* owningWorld, const std::string& texturePath, const sf::Vector2f& velocity = sf::Vector2f{ 0.f, -50.f });
         virtual void Tick(float deltaTime);
 
     private:
