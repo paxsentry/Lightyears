@@ -31,6 +31,7 @@ namespace ly
         void RandomSpritePosition(sf::Sprite& sprite, bool randomY);
         void RandomSpriteRotation(sf::Sprite& sprite);
         void RandomSpriteSize(sf::Sprite& sprite) const;
+        void RandomSpriteVelocity(sf::Sprite& sprite);
         shared<sf::Texture> GetRandomTexture() const;
         bool IsSpriteOffScreen(sf::Sprite& sprite) const;
 

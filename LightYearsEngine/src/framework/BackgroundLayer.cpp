@@ -90,6 +90,13 @@ namespace ly
         sprite.setScale(sf::Vector2f{ size, size });
     }
 
+    void BackgroundLayer::RandomSpriteVelocity(sf::Sprite& sprite)
+    {
+        float velX = RandomRange(mMinVelocity.x, mMaxVelocity.x);
+        float velY = RandomRange(mMinVelocity.y, mMaxVelocity.y);
+        //mVelocities[i] = sf::Vector2f{ velX, velY };
+    }
+
     void BackgroundLayer::SetColorTint(const sf::Color& tintColor)
     {
         mTintColor = tintColor;
@@ -149,7 +156,11 @@ namespace ly
             sprite.setPosition(sprite.getPosition() + velocity * deltaTime);
             if (IsSpriteOffScreen(sprite))
             {
+                RandomSpriteTexture(sprite);
                 RandomSpriteTransform(sprite);
+                float velX = RandomRange(mMinVelocity.x, mMaxVelocity.x);
+                float velY = RandomRange(mMinVelocity.y, mMaxVelocity.y);
+                mVelocities[i] = sf::Vector2f{ velX, velY };
             }
         }
     }
